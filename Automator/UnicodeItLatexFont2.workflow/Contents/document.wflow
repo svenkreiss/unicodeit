@@ -1,0 +1,1114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AMApplicationBuild</key>
+	<string>346</string>
+	<key>AMApplicationVersion</key>
+	<string>2.3</string>
+	<key>AMDocumentVersion</key>
+	<string>2</string>
+	<key>actions</key>
+	<array>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.cocoa.string</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>2.0.3</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>COMMAND_STRING</key>
+					<dict/>
+					<key>CheckedForUserDefaultShell</key>
+					<dict/>
+					<key>inputMethod</key>
+					<dict/>
+					<key>shell</key>
+					<dict/>
+					<key>source</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.cocoa.string</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Run Shell Script.action</string>
+				<key>ActionName</key>
+				<string>Run Shell Script</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>COMMAND_STRING</key>
+					<string># Copyright (c) 2010 Sven Kreiss, Kyle Cranmer
+__author__ = "Sven Kreiss &lt;sk@svenkreiss.com&gt;, Kyle Cranmer &lt;kyle.cranmer@nyu.edu&gt;"
+__version__ = "0.6"
+import sys, re
+
+replacements = [
+    [ur'\\textfractionsolidus', u'\u2044'],
+    [ur'\\leftrightsquigarrow', u'\u21AD'],
+    [ur'\\textpertenthousand', u'\u2031'],
+    [ur'\\blacktriangleright', u'\u25B8'],
+    [ur'\\blacktriangledown', u'\u25BE'],
+    [ur'\\blacktriangleleft', u'\u25C2'],
+    [ur'\\twoheadrightarrow', u'\u21A0'],
+    [ur'\\leftrightharpoons', u'\u21CB'],
+    [ur'\\rightleftharpoons', u'\u21CC'],
+    [ur'\\textreferencemark', u'\u203B'],
+    [ur'\\circlearrowright', u'\u21BB'],
+    [ur'\\rightrightarrows', u'\u21C9'],
+    [ur'\\vartriangleright', u'\u22B3'],
+    [ur'\\textordmasculine', u'\u00BA'],
+    [ur'\\textvisiblespace', u'\u2423'],
+    [ur'\\twoheadleftarrow', u'\u219E'],
+    [ur'\\downharpoonright', u'\u21C2'],
+    [ur'\\ntrianglerighteq', u'\u22ED'],
+    [ur'\\rightharpoondown', u'\u21C1'],
+    [ur'\\textperthousand', u'\u2030'],
+    [ur'\\leftrightarrows', u'\u21C6'],
+    [ur'\\textmusicalnote', u'\u266A'],
+    [ur'\\nleftrightarrow', u'\u21AE'],
+    [ur'\\rightleftarrows', u'\u21C4'],
+    [ur'\\bigtriangledown', u'\u25BD'],
+    [ur'\\textordfeminine', u'\u00AA'],
+    [ur'\\ntrianglelefteq', u'\u22EC'],
+    [ur'\\rightthreetimes', u'\u22CC'],
+    [ur'\\trianglerighteq', u'\u22B5'],
+    [ur'\\vartriangleleft', u'\u22B2'],
+    [ur'\\rightsquigarrow', u'\u21DD'],
+    [ur'\\downharpoonleft', u'\u21C3'],
+    [ur'\\curvearrowright', u'\u21B7'],
+    [ur'\\circlearrowleft', u'\u21BA'],
+    [ur'\\leftharpoondown', u'\u21BD'],
+    [ur'\\nLeftrightarrow', u'\u21CE'],
+    [ur'\\curvearrowleft', u'\u21B6'],
+    [ur'\\guilsinglright', u'\u203A'],
+    [ur'\\leftthreetimes', u'\u22CB'],
+    [ur'\\leftrightarrow', u'\u2194'],
+    [ur'\\rightharpoonup', u'\u21C0'],
+    [ur'\\guillemotright', u'\u00BB'],
+    [ur'\\downdownarrows', u'\u21CA'],
+    [ur'\\hookrightarrow', u'\u21AA'],
+    [ur'\\hspace\{0\.25em}', u'\u2005'],
+    [ur'\\dashrightarrow', u'\u21E2'],
+    [ur'\\leftleftarrows', u'\u21C7'],
+    [ur'\\trianglelefteq', u'\u22B4'],
+    [ur'\\ntriangleright', u'\u22EB'],
+    [ur'\\doublebarwedge', u'\u2306'],
+    [ur'\\upharpoonright', u'\u21BE'],
+    [ur'\\rightarrowtail', u'\u21A3'],
+    [ur'\\looparrowright', u'\u21AC'],
+    [ur'\\Leftrightarrow', u'\u21D4'],
+    [ur'\\sphericalangle', u'\u2222'],
+    [ur'\\divideontimes', u'\u22C7'],
+    [ur'\\measuredangle', u'\u2221'],
+    [ur'\\blacktriangle', u'\u25B4'],
+    [ur'\\ntriangleleft', u'\u22EA'],
+    [ur'\\mathchar"1356', u'\u2041'],
+    [ur'\\texttrademark', u'\u2122'],
+    [ur'\\mathchar"2208', u'\u2316'],
+    [ur'\\triangleright', u'\u25B9'],
+    [ur'\\leftarrowtail', u'\u21A2'],
+    [ur'\\guilsinglleft', u'\u2039'],
+    [ur'\\upharpoonleft', u'\u21BF'],
+    [ur'\\mathbb\{gamma}', u'\u213D'],
+    [ur'\\fallingdotseq', u'\u2252'],
+    [ur'\\dashleftarrow', u'\u21E0'],
+    [ur'\\looparrowleft', u'\u21AB'],
+    [ur'\\textbrokenbar', u'\u00A6'],
+    [ur'\\hookleftarrow', u'\u21A9'],
+    [ur'\\smallsetminus', u'\uFE68'],
+    [ur'\\guillemotleft', u'\u00AB'],
+    [ur'\\leftharpoonup', u'\u21BC'],
+    [ur'\\mathbb\{Gamma}', u'\u213E'],
+    [ur'\\bigtriangleup', u'\u25B3'],
+    [ur'\\textcircledP', u'\u2117'],
+    [ur'\\risingdotseq', u'\u2253'],
+    [ur'\\triangleleft', u'\u25C3'],
+    [ur'\\mathsterling', u'\u00A3'],
+    [ur'\\textcurrency', u'\u00A4'],
+    [ur'\\triangledown', u'\u25BF'],
+    [ur'\\blacklozenge', u'\uE80B'],
+    [ur'\\sfrac\{5}\{6}', u'\u215A'],
+    [ur'\\preccurlyeq', u'\u227C'],
+    [ur'\\Rrightarrow', u'\u21DB'],
+    [ur'\\circledcirc', u'\u229A'],
+    [ur'\\nRightarrow', u'\u21CF'],
+    [ur'\\sfrac\{3}\{8}', u'\u215C'],
+    [ur'\\sfrac\{1}\{3}', u'\u2153'],
+    [ur'\\sfrac\{2}\{5}', u'\u2156'],
+    [ur'\\vartriangle', u'\u25B5'],
+    [ur'\\Updownarrow', u'\u21D5'],
+    [ur'\\nrightarrow', u'\u219B'],
+    [ur'\\sfrac\{1}\{2}', u'\u00BD'],
+    [ur'\\sfrac\{3}\{5}', u'\u2157'],
+    [ur'\\succcurlyeq', u'\u227D'],
+    [ur'\\sfrac\{4}\{5}', u'\u2158'],
+    [ur'\\diamondsuit', u'\u2666'],
+    [ur'\\hphantom\{0}', u'\u2007'],
+    [ur'\\sfrac\{1}\{6}', u'\u2159'],
+    [ur'\\curlyeqsucc', u'\u22DF'],
+    [ur'\\blacksquare', u'\u25AA'],
+    [ur'\\hphantom\{,}', u'\u2008'],
+    [ur'\\curlyeqprec', u'\u22DE'],
+    [ur'\\sfrac\{1}\{8}', u'\u215B'],
+    [ur'\\sfrac\{7}\{8}', u'\u215E'],
+    [ur'\\sfrac\{1}\{5}', u'\u2155'],
+    [ur'\\sfrac\{2}\{3}', u'\u2154'],
+    [ur'\\updownarrow', u'\u2195'],
+    [ur'\\backepsilon', u'\u220D'],
+    [ur'\\circleddash', u'\u229D'],
+    [ur'\\eqslantless', u'\u22DC'],
+    [ur'\\sfrac\{3}\{4}', u'\u00BE'],
+    [ur'\\sfrac\{5}\{8}', u'\u215D'],
+    [ur'\\hspace\{1pt}', u'\u200A'],
+    [ur'\\sfrac\{1}\{4}', u'\u00BC'],
+    [ur'\\mathbb\{Pi}', u'\u213F'],
+    [ur'\\mathcal\{M}', u'\u2133'],
+    [ur'\\nsupseteqq', u'\u2289'],
+    [ur'\\mathcal\{B}', u'\u212C'],
+    [ur'\\textrecipe', u'\u211E'],
+    [ur'\\nsubseteqq', u'\u2288'],
+    [ur'\\subsetneqq', u'\u228A'],
+    [ur'\\mathcal\{I}', u'\u2111'],
+    [ur'\\upuparrows', u'\u21C8'],
+    [ur'\\mathcal\{e}', u'\u212F'],
+    [ur'\\mathcal\{L}', u'\u2112'],
+    [ur'\\nleftarrow', u'\u219A'],
+    [ur'\\mathcal\{H}', u'\u210B'],
+    [ur'\\mathcal\{E}', u'\u2130'],
+    [ur'\\eqslantgtr', u'\u22DD'],
+    [ur'\\curlywedge', u'\u22CF'],
+    [ur'\\varepsilon', u'\u03B5'],
+    [ur'\\supsetneqq', u'\u228B'],
+    [ur'\\rightarrow', u'\u2192'],
+    [ur'\\mathcal\{R}', u'\u211B'],
+    [ur'\\sqsubseteq', u'\u2291'],
+    [ur'\\mathcal\{g}', u'\u210A'],
+    [ur'\\sqsupseteq', u'\u2292'],
+    [ur'\\complement', u'\u2201'],
+    [ur'\\Rightarrow', u'\u21D2'],
+    [ur'\\gtreqqless', u'\u22DB'],
+    [ur'\\lesseqqgtr', u'\u22DA'],
+    [ur'\\circledast', u'\u229B'],
+    [ur'\\nLeftarrow', u'\u21CD'],
+    [ur'\\Lleftarrow', u'\u21DA'],
+    [ur'\\Leftarrow', u'\u21D0'],
+    [ur'\\gvertneqq', u'\u2269'],
+    [ur'\\mathbb\{C}', u'\u2102'],
+    [ur'\\supsetneq', u'\u228B'],
+    [ur'\\leftarrow', u'\u2190'],
+    [ur'\\nleqslant', u'\u2270'],
+    [ur'\\mathbb\{Q}', u'\u211A'],
+    [ur'\\mathbb\{Z}', u'\u2124'],
+    [ur'\\llbracket', u'\u301A'],
+    [ur'\\mathbb\{H}', u'\u210D'],
+    [ur'\\spadesuit', u'\u2660'],
+    [ur'\\mathit\{o}', u'\u2134'],
+    [ur'\\mathbb\{P}', u'\u2119'],
+    [ur'\\rrbracket', u'\u301B'],
+    [ur'\\supseteqq', u'\u2287'],
+    [ur'\\copyright', u'\u00A9'],
+    [ur'\\textsc\{k}', u'\u0138'],
+    [ur'\\gtreqless', u'\u22DB'],
+    [ur'\\mathbb\{j}', u'\u2149'],
+    [ur'\\pitchfork', u'\u22D4'],
+    [ur'\\estimated', u'\u212E'],
+    [ur'\\ngeqslant', u'\u2271'],
+    [ur'\\mathbb\{e}', u'\u2147'],
+    [ur'\\therefore', u'\u2234'],
+    [ur'\\triangleq', u'\u225C'],
+    [ur'\\varpropto', u'\u221D'],
+    [ur'\\subsetneq', u'\u228A'],
+    [ur'\\heartsuit', u'\u2665'],
+    [ur'\\mathbb\{d}', u'\u2146'],
+    [ur'\\lvertneqq', u'\u2268'],
+    [ur'\\checkmark', u'\u2713'],
+    [ur'\\nparallel', u'\u2226'],
+    [ur'\\mathbb\{R}', u'\u211D'],
+    [ur'\\lesseqgtr', u'\u22DA'],
+    [ur'\\downarrow', u'\u2193'],
+    [ur'\\mathbb\{D}', u'\u2145'],
+    [ur'\\mathbb\{i}', u'\u2148'],
+    [ur'\\backsimeq', u'\u22CD'],
+    [ur'\\mathbb\{N}', u'\u2115'],
+    [ur'\\Downarrow', u'\u21D3'],
+    [ur'\\subseteqq', u'\u2286'],
+    [ur'\\setminus', u'\u2216'],
+    [ur'\\succnsim', u'\u22E9'],
+    [ur'\\doteqdot', u'\u2251'],
+    [ur'\\clubsuit', u'\u2663'],
+    [ur'\\emptyset', u'\u2205'],
+    [ur'\\sqsupset', u'\u2290'],
+    [ur'\\fbox\{~~}', u'\u25AD'],
+    [ur'\\curlyvee', u'\u22CE'],
+    [ur'\\varkappa', u'\u03F0'],
+    [ur'\\llcorner', u'\u231E'],
+    [ur'\\varsigma', u'\u03C2'],
+    [ur'\\approxeq', u'\u224A'],
+    [ur'\\backcong', u'\u224C'],
+    [ur'\\supseteq', u'\u2287'],
+    [ur'\\circledS', u'\u24C8'],
+    [ur'\\circledR', u'\u00AE'],
+    [ur'\\textcent', u'\u00A2'],
+    [ur'\\urcorner', u'\u231D'],
+    [ur'\\lrcorner', u'\u231F'],
+    [ur'\\boxminus', u'\u229F'],
+    [ur'\\texteuro', u'\u20AC'],
+    [ur'\\vartheta', u'\u03D1'],
+    [ur'\\barwedge', u'\u22BC'],
+    [ur'\\ding\{86}', u'\u2736'],
+    [ur'\\sqsubset', u'\u228F'],
+    [ur'\\subseteq', u'\u2286'],
+    [ur'\\intercal', u'\u22BA'],
+    [ur'\\ding\{73}', u'\u2606'],
+    [ur'\\ulcorner', u'\u231C'],
+    [ur'\\recorder', u'\u2315'],
+    [ur'\\precnsim', u'\u22E8'],
+    [ur'\\parallel', u'\u2225'],
+    [ur'\\boxtimes', u'\u22A0'],
+    [ur'\\ding\{55}', u'\u2717'],
+    [ur'\\multimap', u'\u22B8'],
+    [ur'\\maltese', u'\u2720'],
+    [ur'\\nearrow', u'\u2197'],
+    [ur'\\swarrow', u'\u2199'],
+    [ur'\\lozenge', u'\u25CA'],
+    [ur'\\sqrt\[3\]', u'\u221B'],
+    [ur'\\succsim', u'\u227F'],
+    [ur'\\tilde\{}', u'\u007E'],
+    [ur'\\lessgtr', u'\u2276'],
+    [ur'\\Upsilon', u'\u03D2'],
+    [ur'\\Cdprime', u'\u042A'],
+    [ur'\\gtrless', u'\u2277'],
+    [ur'\\backsim', u'\u223D'],
+    [ur'\\nexists', u'\u2204'],
+    [ur'\\dotplus', u'\u2214'],
+    [ur'\\searrow', u'\u2198'],
+    [ur'\\lessdot', u'\u22D6'],
+    [ur'\\boxplus', u'\u229E'],
+    [ur'\\upsilon', u'\u03C5'],
+    [ur'\\epsilon', u'\u03B5'],
+    [ur'\\diamond', u'\u22C4'],
+    [ur'\\bigstar', u'\u2605'],
+    [ur'\\ddagger', u'\u2021'],
+    [ur'\\cdprime', u'\u044A'],
+    [ur'\\Uparrow', u'\u21D1'],
+    [ur'\\sqrt\[4\]', u'\u221C'],
+    [ur'\\between', u'\u226C'],
+    [ur'\\sqangle', u'\u221F'],
+    [ur'\\digamma', u'\u03DC'],
+    [ur'\\uparrow', u'\u2191'],
+    [ur'\\nwarrow', u'\u2196'],
+    [ur'\\precsim', u'\u227E'],
+    [ur'\\breve\{}', u'\u02D8'],
+    [ur'\\because', u'\u2235'],
+    [ur'\\bigcirc', u'\u25EF'],
+    [ur'\\acute\{}', u'\u00B4'],
+    [ur'\\grave\{}', u'\u0060'],
+    [ur'\\check\{}', u'\u02C7'],
+    [ur'\\lesssim', u'\u2272'],
+    [ur'\\partial', u'\u2202'],
+    [ur'\\natural', u'\u266E'],
+    [ur'\\supset', u'\u2283'],
+    [ur'\\hstrok', u'\u0127'],
+    [ur'\\Tstrok', u'\u0166'],
+    [ur'\\coprod', u'\u2210'],
+    [ur'\\models', u'\u22A7'],
+    [ur'\\otimes', u'\u2297'],
+    [ur'\\degree', u'\u00B0'],
+    [ur'\\gtrdot', u'\u22D7'],
+    [ur'\\preceq', u'\u227C'],
+    [ur'\\Lambda', u'\u039B'],
+    [ur'\\lambda', u'\u03BB'],
+    [ur'\\cprime', u'\u044C'],
+    [ur'\\varrho', u'\u03F1'],
+    [ur'\\Bumpeq', u'\u224E'],
+    [ur'\\hybull', u'\u2043'],
+    [ur'\\lmidot', u'\u0140'],
+    [ur'\\nvdash', u'\u22AC'],
+    [ur'\\lbrace', u'\u007B'],
+    [ur'\\bullet', u'\u2022'],
+    [ur'\\varphi', u'\u03D5'],
+    [ur'\\bumpeq', u'\u224F'],
+    [ur'\\ddot\{}', u'\u00A8'],
+    [ur'\\Lmidot', u'\u013F'],
+    [ur'\\Cprime', u'\u042C'],
+    [ur'\\female', u'\u2640'],
+    [ur'\\rtimes', u'\u22CA'],
+    [ur'\\gtrsim', u'\u2273'],
+    [ur'\\mapsto', u'\u21A6'],
+    [ur'\\daleth', u'\u2138'],
+    [ur'\\square', u'\u25A0'],
+    [ur'\\nVDash', u'\u22AF'],
+    [ur'\\rangle', u'\u3009'],
+    [ur'\\tstrok', u'\u0167'],
+    [ur'\\oslash', u'\u2298'],
+    [ur'\\ltimes', u'\u22C9'],
+    [ur'\\lfloor', u'\u230A'],
+    [ur'\\marker', u'\u25AE'],
+    [ur'\\Subset', u'\u22D0'],
+    [ur'\\Vvdash', u'\u22AA'],
+    [ur'\\propto', u'\u221D'],
+    [ur'\\dlcrop', u'\u230D'],
+    [ur'\\Hstrok', u'\u0126'],
+    [ur'\\forall', u'\u2200'],
+    [ur'\\nVdash', u'\u22AE'],
+    [ur'\\Supset', u'\u22D1'],
+    [ur'\\langle', u'\u3008'],
+    [ur'\\ominus', u'\u2296'],
+    [ur'\\rfloor', u'\u230B'],
+    [ur'\\circeq', u'\u2257'],
+    [ur'\\eqcirc', u'\u2256'],
+    [ur'\\drcrop', u'\u230C'],
+    [ur'\\veebar', u'\u22BB'],
+    [ur'\\ulcrop', u'\u230F'],
+    [ur'\\nvDash', u'\u22AD'],
+    [ur'\\urcrop', u'\u230E'],
+    [ur'\\exists', u'\u2203'],
+    [ur'\\approx', u'\u2248'],
+    [ur'\\dagger', u'\u2020'],
+    [ur'\\boxdot', u'\u22A1'],
+    [ur'\\succeq', u'\u227D'],
+    [ur'\\bowtie', u'\u22C8'],
+    [ur'\\subset', u'\u2282'],
+    [ur'\\Sigma', u'\u03A3'],
+    [ur'\\Omega', u'\u03A9'],
+    [ur'\\nabla', u'\u2207'],
+    [ur'\\colon', u'\u003A'],
+    [ur'\\boxHu', u'\u2567'],
+    [ur'\\boxHd', u'\u2564'],
+    [ur'\\aleph', u'\u2135'],
+    [ur'\\gnsim', u'\u22E7'],
+    [ur'\\boxHU', u'\u2569'],
+    [ur'\\boxHD', u'\u2566'],
+    [ur'\\equiv', u'\u2261'],
+    [ur'\\lneqq', u'\u2268'],
+    [ur'\\alpha', u'\u03B1'],
+    [ur'\\amalg', u'\u2210'],
+    [ur'\\boxhU', u'\u2568'],
+    [ur'\\boxhD', u'\u2565'],
+    [ur'\\uplus', u'\u228E'],
+    [ur'\\boxhu', u'\u2534'],
+    [ur'\\kappa', u'\u03BA'],
+    [ur'\\sigma', u'\u03C3'],
+    [ur'\\boxDL', u'\u2557'],
+    [ur'\\Theta', u'\u0398'],
+    [ur'\\Vdash', u'\u22A9'],
+    [ur'\\boxDR', u'\u2554'],
+    [ur'\\boxDl', u'\u2556'],
+    [ur'\\sqcap', u'\u2293'],
+    [ur'\\boxDr', u'\u2553'],
+    [ur'\\bar\{}', u'\u00AF'],
+    [ur'\\dashv', u'\u22A3'],
+    [ur'\\vDash', u'\u22A8'],
+    [ur'\\boxdl', u'\u2510'],
+    [ur'\\boxVl', u'\u2562'],
+    [ur'\\boxVh', u'\u256B'],
+    [ur'\\boxVr', u'\u255F'],
+    [ur'\\boxdr', u'\u250C'],
+    [ur'\\boxdL', u'\u2555'],
+    [ur'\\boxVL', u'\u2563'],
+    [ur'\\boxVH', u'\u256C'],
+    [ur'\\boxVR', u'\u2560'],
+    [ur'\\boxdR', u'\u2552'],
+    [ur'\\theta', u'\u03B8'],
+    [ur'\\lhblk', u'\u2584'],
+    [ur'\\uhblk', u'\u2580'],
+    [ur'\\ldotp', u'\u002E'],
+    [ur'\\ldots', u'\u2026'],
+    [ur'\\boxvL', u'\u2561'],
+    [ur'\\boxvH', u'\u256A'],
+    [ur'\\boxvR', u'\u255E'],
+    [ur'\\boxvl', u'\u2524'],
+    [ur'\\boxvh', u'\u253C'],
+    [ur'\\boxvr', u'\u251C'],
+    [ur'\\Delta', u'\u0394'],
+    [ur'\\boxUR', u'\u255A'],
+    [ur'\\boxUL', u'\u255D'],
+    [ur'\\oplus', u'\u2295'],
+    [ur'\\boxUr', u'\u2559'],
+    [ur'\\boxUl', u'\u255C'],
+    [ur'\\doteq', u'\u2250'],
+    [ur'\\happy', u'\u32E1'],
+    [ur'\\varpi', u'\u03D6'],
+    [ur'\\boxur', u'\u2514'],
+    [ur'\\smile', u'\u263A'],
+    [ur'\\boxul', u'\u2518'],
+    [ur'\\simeq', u'\u2243'],
+    [ur'\\boxuR', u'\u2558'],
+    [ur'\\boxuL', u'\u255B'],
+    [ur'\\boxhd', u'\u252C'],
+    [ur'\\gimel', u'\u2137'],
+    [ur'\\Gamma', u'\u0393'],
+    [ur'\\lnsim', u'\u22E6'],
+    [ur'\\sqcup', u'\u2294'],
+    [ur'\\omega', u'\u03C9'],
+    [ur'\\sharp', u'\u266F'],
+    [ur'\\times', u'\u00D7'],
+    [ur'\\block', u'\u2588'],
+    [ur'\\hat\{}', u'\u005E'],
+    [ur'\\wedge', u'\u2227'],
+    [ur'\\vdash', u'\u22A2'],
+    [ur'\\angle', u'\u2220'],
+    [ur'\\infty', u'\u221E'],
+    [ur'\\gamma', u'\u03B3'],
+    [ur'\\asymp', u'\u224D'],
+    [ur'\\rceil', u'\u2309'],
+    [ur'\\dot\{}', u'\u02D9'],
+    [ur'\\lceil', u'\u2308'],
+    [ur'\\delta', u'\u03B4'],
+    [ur'\\gneqq', u'\u2269'],
+    [ur'\\frown', u'\u2322'],
+    [ur'\\phone', u'\u260E'],
+    [ur'\\vdots', u'\u22EE'],
+    [ur'\\k\{i}', u'\u012F'],
+    [ur'\\`\{I}', u'\u00CC'],
+    [ur'\\perp', u'\u22A5'],
+    [ur'\\"\{o}', u'\u00F6'],
+    [ur'\\=\{I}', u'\u012A'],
+    [ur'\\`\{a}', u'\u00E0'],
+    [ur'\\v\{T}', u'\u0164'],
+    [ur'\\surd', u'\u221A'],
+    [ur'\\H\{O}', u'\u0150'],
+    [ur'\\vert', u'\u007C'],
+    [ur'\\k\{I}', u'\u012E'],
+    [ur'\\"\{y}', u'\u00FF'],
+    [ur'\\"\{O}', u'\u00D6'],
+    [ur'\\\'\{Y}', u'\u00DD'],
+    [ur'\\u\{u}', u'\u045E'],
+    [ur'\\u\{G}', u'\u011E'],
+    [ur'\\\.\{E}', u'\u0116'],
+    [ur'\\\.\{z}', u'\u017C'],
+    [ur'\\\^\{s}', u'\u015D'],
+    [ur'\\v\{t}', u'\u0165'],
+    [ur'\\prec', u'\u227A'],
+    [ur'\\H\{o}', u'\u0151'],
+    [ur'\\mldr', u'\u2026'],
+    [ur'\\\'\{y}', u'\u00FD'],
+    [ur'\\cong', u'\u2245'],
+    [ur'\\\.\{e}', u'\u0117'],
+    [ur'\\\'\{L}', u'\u0139'],
+    [ur'\\star', u'\u002A'],
+    [ur'\\\.\{Z}', u'\u017B'],
+    [ur'\\r\{u}', u'\u016F'],
+    [ur'\\\'\{e}', u'\u00E9'],
+    [ur'\\geqq', u'\u2267'],
+    [ur'\\cdot', u'\u22C5'],
+    [ur'\\`\{U}', u'\u00D9'],
+    [ur'\\\'\{l}', u'\u013A'],
+    [ur'\\\^\{J}', u'\u0134'],
+    [ur'\\v\{L}', u'\u013D'],
+    [ur'\\c\{s}', u'\u015F'],
+    [ur'\\\'\{s}', u'\u015B'],
+    [ur'\\~\{A}', u'\u00C3'],
+    [ur'\\Vert', u'\u2016'],
+    [ur'\\k\{e}', u'\u0119'],
+    [ur'\\lnot', u'\u00AC'],
+    [ur'\\\'\{z}', u'\u017A'],
+    [ur'\\leqq', u'\u2266'],
+    [ur'\\beta', u'\u03B2'],
+    [ur'\\beth', u'\u2136'],
+    [ur'\\\'\{E}', u'\u00C9'],
+    [ur'\\~\{n}', u'\u00F1'],
+    [ur'\\u\{i}', u'\u0439'],
+    [ur'\\c\{S}', u'\u015E'],
+    [ur'\\c\{N}', u'\u0145'],
+    [ur'\\H\{u}', u'\u0171'],
+    [ur'\\v\{n}', u'\u0148'],
+    [ur'\\\'\{S}', u'\u015A'],
+    [ur'\\=\{U}', u'\u016A'],
+    [ur'\\~\{O}', u'\u00D5'],
+    [ur'\\\^\{I}', u'\u00CE'],
+    [ur'\\\'\{Z}', u'\u0179'],
+    [ur'\\v\{E}', u'\u011A'],
+    [ur'\\\'\{R}', u'\u0154'],
+    [ur'\\H\{U}', u'\u0170'],
+    [ur'\\v\{N}', u'\u0147'],
+    [ur'\\prod', u'\u220F'],
+    [ur'\\\^\{W}', u'\u0174'],
+    [ur'\\v\{s}', u'\u0161'],
+    [ur'\\"\{U}', u'\u00DC'],
+    [ur'\\c\{n}', u'\u0146'],
+    [ur'\\\^\{e}', u'\u00EA'],
+    [ur'\\k\{U}', u'\u0172'],
+    [ur'\\c\{R}', u'\u0156'],
+    [ur'\\\'\{A}', u'\u00C1'],
+    [ur'\\~\{o}', u'\u00F5'],
+    [ur'\\v\{e}', u'\u011B'],
+    [ur'\\\^\{w}', u'\u0175'],
+    [ur'\\v\{S}', u'\u0160'],
+    [ur'\\u\{A}', u'\u0102'],
+    [ur'\\circ', u'\u2218'],
+    [ur'\\"\{u}', u'\u00FC'],
+    [ur'\\\^\{E}', u'\u00CA'],
+    [ur'\\flat', u'\u266D'],
+    [ur'\\v\{z}', u'\u017E'],
+    [ur'\\\^\{S}', u'\u015C'],
+    [ur'\\\^\{a}', u'\u00E2'],
+    [ur'\\`\{O}', u'\u00D2'],
+    [ur'\\=\{u}', u'\u016B'],
+    [ur'\\oint', u'\u222E'],
+    [ur'\\c\{K}', u'\u0136'],
+    [ur'\\k\{u}', u'\u0173'],
+    [ur'\\not&lt;', u'\u226E'],
+    [ur'\\not&gt;', u'\u226F'],
+    [ur'\\`\{o}', u'\u00F2'],
+    [ur'\\"\{I}', u'\u00CF'],
+    [ur'\\v\{D}', u'\u010E'],
+    [ur'\\\^\{H}', u'\u0124'],
+    [ur'\\\.\{G}', u'\u0120'],
+    [ur'\\\^\{A}', u'\u00C2'],
+    [ur'\\\^\{o}', u'\u00F4'],
+    [ur'\\not=', u'\u2260'],
+    [ur'\\`\{u}', u'\u00F9'],
+    [ur'\\v\{c}', u'\u010D'],
+    [ur'\\c\{k}', u'\u0137'],
+    [ur'\\\^\{h}', u'\u0125'],
+    [ur'\\\.\{g}', u'\u0121'],
+    [ur'\\\'\{N}', u'\u0143'],
+    [ur'\\odot', u'\u2299'],
+    [ur'\\`\{e}', u'\u044D'],
+    [ur'\\c\{T}', u'\u0162'],
+    [ur'\\v\{d}', u'\u010F'],
+    [ur'\\"\{e}', u'\u0451'],
+    [ur'\\\'\{I}', u'\u00CD'],
+    [ur'\\v\{R}', u'\u0158'],
+    [ur'\\\^\{u}', u'\u00FB'],
+    [ur'\\k\{a}', u'\u0105'],
+    [ur'\\nldr', u'\u2025'],
+    [ur'\\\^\{O}', u'\u00D4'],
+    [ur'\\`\{A}', u'\u00C0'],
+    [ur'\\\'\{n}', u'\u0144'],
+    [ur'\\~\{N}', u'\u00D1'],
+    [ur'\\nmid', u'\u2224'],
+    [ur'\\\.\{C}', u'\u010A'],
+    [ur'\\zeta', u'\u03B6'],
+    [ur'\\~\{u}', u'\u0169'],
+    [ur'\\`\{E}', u'\u042D'],
+    [ur'\\~\{a}', u'\u00E3'],
+    [ur'\\c\{t}', u'\u0163'],
+    [ur'\\=\{o}', u'\u014D'],
+    [ur'\\v\{r}', u'\u0159'],
+    [ur'\\=\{A}', u'\u0100'],
+    [ur'\\\.\{c}', u'\u010B'],
+    [ur'\\r\{U}', u'\u016E'],
+    [ur'\\~\{U}', u'\u0168'],
+    [ur'\\k\{A}', u'\u0104'],
+    [ur'\\"\{a}', u'\u00E4'],
+    [ur'\\u\{U}', u'\u040E'],
+    [ur'\\iota', u'\u03B9'],
+    [ur'\\=\{O}', u'\u014C'],
+    [ur'\\c\{C}', u'\u00C7'],
+    [ur'\\gneq', u'\u2269'],
+    [ur'\\\'\{c}', u'\u0107'],
+    [ur'\\boxH', u'\u2550'],
+    [ur'\\hbar', u'\u210F'],
+    [ur'\\"\{A}', u'\u00C4'],
+    [ur'\\boxv', u'\u2502'],
+    [ur'\\boxh', u'\u2500'],
+    [ur'\\male', u'\u2642'],
+    [ur'\\\'\{u}', u'\u00FA'],
+    [ur'\\sqrt', u'\u221A'],
+    [ur'\\succ', u'\u227B'],
+    [ur'\\\^\{Y}', u'\u0176'],
+    [ur'\\\^\{g}', u'\u011D'],
+    [ur'\\c\{c}', u'\u00E7'],
+    [ur'\\\'\{C}', u'\u0106'],
+    [ur'\\\^\{C}', u'\u0108'],
+    [ur'\\v\{l}', u'\u013E'],
+    [ur'\\u\{a}', u'\u0103'],
+    [ur'\\v\{Z}', u'\u017D'],
+    [ur'\\\'\{o}', u'\u00F3'],
+    [ur'\\c\{G}', u'\u0122'],
+    [ur'\\\^\{G}', u'\u011C'],
+    [ur'\\v\{C}', u'\u010C'],
+    [ur'\\lneq', u'\u2268'],
+    [ur'\\"\{E}', u'\u0401'],
+    [ur'\\=\{a}', u'\u0101'],
+    [ur'\\\^\{y}', u'\u0177'],
+    [ur'\\\^\{U}', u'\u00DB'],
+    [ur'\\c\{l}', u'\u013C'],
+    [ur'\\\^\{c}', u'\u0109'],
+    [ur'\\\'\{a}', u'\u00E1'],
+    [ur'\\=\{E}', u'\u0112'],
+    [ur'\\boxV', u'\u2551'],
+    [ur'\\u\{g}', u'\u011F'],
+    [ur'\\\'\{O}', u'\u00D3'],
+    [ur'\\\'\{g}', u'\u01F5'],
+    [ur'\\u\{I}', u'\u0419'],
+    [ur'\\c\{L}', u'\u013B'],
+    [ur'\\k\{E}', u'\u0118'],
+    [ur'\\\.\{I}', u'\u0130'],
+    [ur'\\~\{I}', u'\u0128'],
+    [ur'\\quad', u'\u2003'],
+    [ur'\\c\{r}', u'\u0157'],
+    [ur'\\\'\{r}', u'\u0155'],
+    [ur'\\"\{Y}', u'\u0178'],
+    [ur'\\=\{e}', u'\u0113'],
+    [ur'\\\'\{U}', u'\u00DA'],
+    [ur'\\leq', u'\u2264'],
+    [ur'\\Cup', u'\u22D3'],
+    [ur'\\Psi', u'\u03A8'],
+    [ur'\\dzh', u'\u045F'],
+    [ur'\\H\{}', u'\u02DD'],
+    [ur'\\k\{}', u'\u02DB'],
+    [ur'\\=\{}', u'\u203E'],
+    [ur'\\cup', u'\u222A'],
+    [ur'\\geq', u'\u2265'],
+    [ur'\\mho', u'\u2127'],
+    [ur'\\Dzh', u'\u040F'],
+    [ur'\\cap', u'\u2229'],
+    [ur'\\bot', u'\u22A5'],
+    [ur'\\psi', u'\u03C8'],
+    [ur'\\chi', u'\u03C7'],
+    [ur'\\c\{}', u'\u00B8'],
+    [ur'\\Phi', u'\u03A6'],
+    [ur'\\ast', u'\u002A'],
+    [ur'\\ell', u'\u2113'],
+    [ur'\\top', u'\u22A4'],
+    [ur'\\lll', u'\u22D8'],
+    [ur'\\tau', u'\u03C4'],
+    [ur'\\Cap', u'\u22D2'],
+    [ur'\\sad', u'\u2639'],
+    [ur'\\iff', u'\u21D4'],
+    [ur'\\eta', u'\u03B7'],
+    [ur'\\eth', u'\u00F0'],
+    [ur'\\d\{}', u'\u0323'],
+    [ur'\\rho', u'\u03C1'],
+    [ur'\\div', u'\u00F7'],
+    [ur'\\phi', u'\u03C6'],
+    [ur'\\Rsh', u'\u21B1'],
+    [ur'\\vee', u'\u2228'],
+    [ur'\\b\{}', u'\u02CD'],
+    [ur'\\t\{}', u'\u0361'],
+    [ur'\\int', u'\u222B'],
+    [ur'\\sim', u'\u223C'],
+    [ur'\\r\{}', u'\u02DA'],
+    [ur'\\Lsh', u'\u21B0'],
+    [ur'\\yen', u'\u00A5'],
+    [ur'\\ggg', u'\u22D9'],
+    [ur'\\mid', u'\u2223'],
+    [ur'\\sum', u'\u2211'],
+    [ur'\\Dz', u'\u0405'],
+    [ur'\\Re', u'\u211C'],
+    [ur'\\oe', u'\u0153'],
+    [ur'\\DH', u'\u00D0'],
+    [ur'\\ll', u'\u226A'],
+    [ur'\\=e', u'\u0454'],
+    [ur'\\ng', u'\u014B'],
+    [ur'\\\'G', u'\u0403'],
+    [ur'\\wr', u'\u2240'],
+    [ur'\\wp', u'\u2118'],
+    [ur'\\=I', u'\u0406'],
+    [ur'\\:\)', u'\u263A'],
+    [ur'\\:\(', u'\u2639'],
+    [ur'\\AE', u'\u00C6'],
+    [ur'\\AA', u'\u00C5'],
+    [ur'\\ss', u'\u00DF'],
+    [ur'\\dz', u'\u0455'],
+    [ur'\\ae', u'\u00E6'],
+    [ur'\\aa', u'\u00E5'],
+    [ur'\\th', u'\u00FE'],
+    [ur'\\to', u'\u2192'],
+    [ur'\\Pi', u'\u03A0'],
+    [ur'\\mp', u'\u2213'],
+    [ur'\\Im', u'\u2111'],
+    [ur'\\pm', u'\u00B1'],
+    [ur'\\pi', u'\u03C0'],
+    [ur'\\"I', u'\u0407'],
+    [ur'\\\'C', u'\u040B'],
+    [ur'\\in', u'\u2208'],
+    [ur'\\\'k', u'\u045C'],
+    [ur'\\\'c', u'\u045B'],
+    [ur'\\\'g', u'\u0453'],
+    [ur'\\ni', u'\u220B'],
+    [ur'\\TH', u'\u00DE'],
+    [ur'\\Xi', u'\u039E'],
+    [ur'\\nu', u'\u03BD'],
+    [ur'\\NG', u'\u014A'],
+    [ur'\\:G', u'\u32E1'],
+    [ur'\\xi', u'\u03BE'],
+    [ur'\\\'K', u'\u040C'],
+    [ur'\\OE', u'\u0152'],
+    [ur'\\gg', u'\u226B'],
+    [ur'\\DJ', u'\u0110'],
+    [ur'\\=E', u'\u0404'],
+    [ur'\\mu', u'\u03BC'],
+    [ur'\\dj', u'\u0111'],
+    [ur'\\:', u'\u2004'],
+    [ur'\\;', u'\u2002'],
+    [ur'\\&amp;', u'\u0026'],
+    [ur'\\\$', u'\u0024'],
+    [ur'\\%', u'\u0025'],
+    [ur'\\#', u'\u0023'],
+    [ur'\\,', u'\u2009'],
+    [ur'\\-', u'\u00AD'],
+    [ur'\\S', u'\u00A7'],
+    [ur'\\P', u'\u00B6'],
+    [ur'\\O', u'\u00D8'],
+    [ur'\\L', u'\u0141'],
+    [ur'\\}', u'\u007D'],
+    [ur'\\o', u'\u00F8'],
+    [ur'\\l', u'\u0142'],
+    [ur'\\h', u'\u210E'],
+    [ur'\\i', u'\u2139'],
+]
+combiningmarks = [
+    [ur'\\tilde', u'\u0303'],
+    [ur'\\grave', u'\u0300'],
+    [ur'\\dot', u'\u0307'],
+    [ur'\\acute', u'\u0301'],
+    [ur'\\doubleunderline', u'\u0333'],
+    [ur'\\ddot', u'\u0308'],
+    [ur'\\slash', u'\u0338'],
+    [ur'\\overline', u'\u0305'],
+    [ur'\\vec', u'\u20D7'],
+    [ur'\\hat', u'\u0302'],
+    [ur'\\breve', u'\u0306'],
+    [ur'\\underline', u'\u0332'],
+    [ur'\\strikethrough', u'\u0335'],
+    [ur'\\bar', u'\u0305'],
+]
+subsuperscripts = [
+    [ur'\^3', u'\u00B3'],
+    [ur'\^4', u'\u2074'],
+    [ur'\^5', u'\u2075'],
+    [ur'_\u03C1', u'\u1D68'],
+    [ur'_\u03C7', u'\u1D6A'],
+    [ur'_\u03C6', u'\u1D69'],
+    [ur'\^7', u'\u2077'],
+    [ur'\^8', u'\u2078'],
+    [ur'\^9', u'\u2079'],
+    [ur'\^i', u'\u2071'],
+    [ur'\^=', u'\u207C'],
+    [ur'_x', u'\u2093'],
+    [ur'\^0', u'\u2070'],
+    [ur'_v', u'\u1D65'],
+    [ur'_u', u'\u1D64'],
+    [ur'_t', u'\u209C'],
+    [ur'_s', u'\u209B'],
+    [ur'_r', u'\u1D63'],
+    [ur'\^6', u'\u2076'],
+    [ur'_p', u'\u209A'],
+    [ur'_o', u'\u2092'],
+    [ur'_n', u'\u2099'],
+    [ur'_m', u'\u2098'],
+    [ur'_l', u'\u2097'],
+    [ur'_k', u'\u2096'],
+    [ur'_j', u'\u2C7C'],
+    [ur'_i', u'\u1D62'],
+    [ur'_h', u'\u2095'],
+    [ur'_e', u'\u2091'],
+    [ur'_a', u'\u2090'],
+    [ur'\^-', u'\u207B'],
+    [ur'\^\)', u'\u207E'],
+    [ur'\^n', u'\u207F'],
+    [ur'_\u03B2', u'\u1D66'],
+    [ur'_\u03B3', u'\u1D67'],
+    [ur'\^\*', u'\u002A'],
+    [ur'\^\+', u'\u207A'],
+    [ur'_=', u'\u208C'],
+    [ur'_9', u'\u2089'],
+    [ur'_8', u'\u2088'],
+    [ur'_7', u'\u2087'],
+    [ur'_6', u'\u2086'],
+    [ur'_5', u'\u2085'],
+    [ur'_4', u'\u2084'],
+    [ur'_3', u'\u2083'],
+    [ur'_2', u'\u2082'],
+    [ur'_1', u'\u2081'],
+    [ur'_0', u'\u2080'],
+    [ur'\^1', u'\u00B9'],
+    [ur'_-', u'\u208B'],
+    [ur'\^\(', u'\u207D'],
+    [ur'_\+', u'\u208A'],
+    [ur'_\)', u'\u208E'],
+    [ur'_\(', u'\u208D'],
+    [ur'\^2', u'\u00B2'],
+]
+
+
+def replace(inp):
+    result = []
+    for f in inp:
+        f = f.decode("utf-8")
+        
+        #f = re.sub(r"([^\\])([_|\^])", r"\1\\\2", f) # do not require backslash in front of ^ or _
+        #f = re.sub(r"^([_|\^])", r"\\\1", f)
+        
+        # escape combining marks with a space after the backslash
+        for c in combiningmarks:
+            offset = 0
+            for s in re.finditer(c[0], f):
+                f = f[:s.start()+1+offset] + " " + f[s.start()+1+offset:]
+                offset += 1
+            
+        for r in replacements:
+            f = re.sub(r[0], r[1], f)
+
+        # expand groups of subscripts: \_{01234}    
+        offset = 0
+        #for s in re.finditer(r"\\_\{[^\}]+\}", f):
+        for s in re.finditer(ur"_\{[0-9\+-=\(\)aeoxjhklmnpstiruv\u03B2\u03B3\u03C1\u03C6\u03C7]+\}", f):
+            newstring,n = re.subn(ur"([0-9\+-=\(\)aeoxjhklmnpstiruv\u03B2\u03B3\u03C1\u03C6\u03C7])", r"_\1", s.group(0)[2:-1])
+            f = f[:s.start()+offset] + newstring + f[s.end()+offset:]
+            offset += n*2 - (n + 3)
+            
+        # expand groups of superscripts: \^{01234}    
+        offset = 0
+        #for s in re.finditer(r"\\\^\{[^\}]+\}", f):
+        for s in re.finditer(r"\^\{[0-9\+-=\(\)ni]+\}", f):
+            newstring,n = re.subn(r"([0-9\+-=\(\)ni])", r"^\1", s.group(0)[2:-1])
+            f = f[:s.start()+offset] + newstring + f[s.end()+offset:]
+            offset += n*2 - (n + 3)
+        
+        # now replace subsuperscripts
+        for r in subsuperscripts:
+            f = re.sub(r[0], r[1], f)
+
+        # combining marks (unicode char modifies previous char)
+        for c in combiningmarks:
+            offset = 0
+            for s in re.finditer(r"\\ "+c[0][2:]+r"\{[^\}]+\}", f):
+                newstring,n = re.subn(r"(.)", r"\1"+c[1], s.group(0)[len(c[0])+1:-1])
+                f = f[:s.start()+offset] + newstring + f[s.end()+offset:]
+                offset += n - (n + len(c[0])+1)
+
+        result.append( unicode(f).encode("utf-8") )
+                
+    return result
+
+
+if __name__ == "__main__":
+    result = replace(sys.argv[1:])
+    for r in result: print(r)
+    </string>
+					<key>CheckedForUserDefaultShell</key>
+					<true/>
+					<key>inputMethod</key>
+					<integer>1</integer>
+					<key>shell</key>
+					<string>/usr/bin/python</string>
+					<key>source</key>
+					<string></string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.RunShellScript</string>
+				<key>CFBundleVersion</key>
+				<string>2.0.3</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>RunShellScriptAction</string>
+				<key>InputUUID</key>
+				<string>56C582C7-9EA5-481C-BBD3-AF2CF8342A9A</string>
+				<key>Keywords</key>
+				<array>
+					<string>Shell</string>
+					<string>Script</string>
+					<string>Command</string>
+					<string>Run</string>
+					<string>Unix</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>41616A21-3F5A-47C4-91F9-533ECA7787A5</string>
+				<key>StartAction</key>
+				<false/>
+				<key>UUID</key>
+				<string>AE8F8D44-0BC9-4AB3-A66B-D44168BD1D96</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<integer>0</integer>
+						<key>name</key>
+						<string>inputMethod</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+					<key>1</key>
+					<dict>
+						<key>default value</key>
+						<string></string>
+						<key>name</key>
+						<string>source</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>1</string>
+					</dict>
+					<key>2</key>
+					<dict>
+						<key>default value</key>
+						<false/>
+						<key>name</key>
+						<string>CheckedForUserDefaultShell</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>2</string>
+					</dict>
+					<key>3</key>
+					<dict>
+						<key>default value</key>
+						<string></string>
+						<key>name</key>
+						<string>COMMAND_STRING</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>3</string>
+					</dict>
+					<key>4</key>
+					<dict>
+						<key>default value</key>
+						<string>/bin/sh</string>
+						<key>name</key>
+						<string>shell</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>4</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>309.500000:499.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/English.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+	</array>
+	<key>connectors</key>
+	<dict/>
+	<key>state</key>
+	<dict>
+		<key>AMLogTabViewSelectedIndex</key>
+		<integer>0</integer>
+		<key>libraryState</key>
+		<dict>
+			<key>actionsMajorSplitViewState</key>
+			<dict>
+				<key>expandedPosition</key>
+				<real>0.0</real>
+				<key>subviewState</key>
+				<array>
+					<string>0.000000, 0.000000, 381.000000, 515.000000, NO</string>
+					<string>0.000000, 516.000000, 381.000000, 184.000000, NO</string>
+				</array>
+			</dict>
+			<key>actionsMinorSplitViewState</key>
+			<dict>
+				<key>expandedPosition</key>
+				<real>0.0</real>
+				<key>subviewState</key>
+				<array>
+					<string>0.000000, 0.000000, 163.000000, 515.000000, NO</string>
+					<string>164.000000, 0.000000, 217.000000, 515.000000, NO</string>
+				</array>
+			</dict>
+			<key>variablesMajorSplitViewState</key>
+			<dict>
+				<key>expandedPosition</key>
+				<real>0.0</real>
+				<key>subviewState</key>
+				<array>
+					<string>0.000000, 0.000000, 350.000000, 555.000000, NO</string>
+					<string>0.000000, 556.000000, 350.000000, 148.000000, NO</string>
+				</array>
+			</dict>
+			<key>variablesMinorSplitViewState</key>
+			<dict>
+				<key>expandedPosition</key>
+				<real>0.0</real>
+				<key>subviewState</key>
+				<array>
+					<string>0.000000, 0.000000, 163.000000, 555.000000, NO</string>
+					<string>164.000000, 0.000000, 186.000000, 555.000000, NO</string>
+				</array>
+			</dict>
+		</dict>
+		<key>majorSplitViewState</key>
+		<dict>
+			<key>expandedPosition</key>
+			<real>381</real>
+			<key>subviewState</key>
+			<array>
+				<string>0.000000, 0.000000, 381.000000, 745.000000, NO</string>
+				<string>382.000000, 0.000000, 619.000000, 745.000000, NO</string>
+			</array>
+		</dict>
+		<key>minorSplitViewState</key>
+		<dict>
+			<key>expandedPosition</key>
+			<real>0.0</real>
+			<key>subviewState</key>
+			<array>
+				<string>0.000000, 0.000000, 619.000000, 554.000000, NO</string>
+				<string>0.000000, 564.000000, 619.000000, 162.000000, NO</string>
+			</array>
+		</dict>
+		<key>windowFrame</key>
+		<string>{{440, 4}, {1000, 822}}</string>
+		<key>workflowViewScrollPosition</key>
+		<string>{{0, 0}, {604, 554}}</string>
+	</dict>
+	<key>workflowMetaData</key>
+	<dict>
+		<key>serviceInputTypeIdentifier</key>
+		<string>com.apple.Automator.text</string>
+		<key>serviceOutputTypeIdentifier</key>
+		<string>com.apple.Automator.text</string>
+		<key>serviceProcessesInput</key>
+		<integer>0</integer>
+		<key>workflowTypeIdentifier</key>
+		<string>com.apple.Automator.servicesMenu</string>
+	</dict>
+</dict>
+</plist>
