@@ -11,7 +11,7 @@ class MainHandler(webapp.RequestHandler):
     def get(self):
         template_values = {}
         
-       if self.request.get('expr') is not None:
+        if self.request.get('expr') is not None:
             template_values['expression'] = self.request.get('expr') 
         
         path = os.path.join(os.path.dirname(__file__), 'templates/base.html')
