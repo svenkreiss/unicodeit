@@ -1,6 +1,6 @@
 # Copyright (c) 2010 Sven Kreiss, Kyle Cranmer
 __author__ = "Sven Kreiss <sk@svenkreiss.com>, Kyle Cranmer <kyle.cranmer@nyu.edu>"
-__version__ = "0.6"
+__version__ = "0.61"
 import sys, re
 
 replacements = []

@@ -51,6 +51,7 @@ def addSymbols(replacements):
     replacements["\\sqrt[3]"] = "221B"
     replacements["\\sqrt[4]"] = "221C"
     replacements["\\neq"] = "2260"
+    replacements["\\ne"] = "2260"
                 
 
 #def addSubSuper(replacements):
@@ -288,7 +289,7 @@ for t in template:
         out.write("replacements = [\n")
         for l,u in replacements:
             l = escapeAll(l)
-            out.write("    [ur'"+l+"', u'\\u"+u+"'],\n")
+            out.write("    (ur'"+l+"', u'\\u"+u+"'),\n")
         out.write("]\n")
     elif t[:14] == "combiningmarks":
         combiningmarks = {}
@@ -296,7 +297,7 @@ for t in template:
         out.write("combiningmarks = [\n")
         for l,u in combiningmarks.items():
             l = escapeAll(l)
-            out.write("    [ur'"+l+"', u'\\u"+u+"'],\n")
+            out.write("    (ur'"+l+"', u'\\u"+u+"'),\n")
         out.write("]\n")
     elif t[:15] == "subsuperscripts":
         subsuperscripts = {}
@@ -304,7 +305,7 @@ for t in template:
         out.write("subsuperscripts = [\n")
         for l,u in subsuperscripts.items():
             l = escapeAll(l)
-            out.write("    [ur'"+l+"', u'\\u"+u+"'],\n")
+            out.write("    (ur'"+l+"', u'\\u"+u+"'),\n")
         out.write("]\n")
     else:
         out.write(t)
