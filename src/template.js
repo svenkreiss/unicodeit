@@ -1,6 +1,6 @@
 // Copyright (c) 2010 Sven Kreiss, Kyle Cranmer
 // Sven Kreiss <sk@svenkreiss.com>, Kyle Cranmer <kyle.cranmer@nyu.edu>
-// version 0.6
+// version 0.6.2
 
 var replacements = [];
 var combiningmarks = [];

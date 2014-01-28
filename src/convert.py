@@ -34,7 +34,7 @@ def addSymbols(replacements):
                 latex = latexElement.text
                 
             # remove elements of the form "\^{A}" and "\_{A}"
-            if len(latex) == 5 and latex[2] == "{" and latex[4] == "}":
+            if len(latex) == 5 and latex[2] == "{" and latex[4] == "}" and (latex[1] in ['^','_']):
                 continue
     
             #  and latex.find('{') == -1 and latex.find('}') == -1
