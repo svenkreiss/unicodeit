@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>unicodeit.net</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+
+    <style>
+      body {
+        font-family: "Helvetica Neue", helvetica, arial;
+        padding: 30px 15px 30px 15px;
+        color:#999;
+      }
+
+      h1 { color:#55C; margin-top:0; }
+      .banner_it { color:#000; }
+      h1 small { font-size:40%; }
+
+      .leftColumn, .rightColumn { margin-top:50px; }
+
+      #content_manage { display:none; }
+      #content_participate { display:none; }
+
+      .subtitle { font-size:50%; color:#888; }
+      .beta { font-size:40%; color:#ccc; }
+
+      .large_stat { font-size:300%; }
+      .raw { word-wrap:break-word; }
+
+      .footer { color:#ccc; font-size:80%; }
+      .footer a { color:#ccc; }
+      
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      ul li {
+        line-height: 1.4;
+      }
+
+      input { margin:5px; }
+
+
+
+
+
+
+.twitter-typeahead{
+width:100%;
+}
+
+.twitter-typeahead .tt-query,
+.twitter-typeahead .tt-hint {
+  margin-bottom: 0;
+}
+.tt-dropdown-menu {
+  min-width: 160px;
+  margin-top: 2px;
+  padding: 5px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
+  width:100%;        
+}
+
+.tt-suggestion {
+  display: block;
+  padding: 3px 20px;
+}
+
+.tt-suggestion.tt-is-under-cursor {
+  color: #fff;
+  background-color: #0081c2;
+  background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
+  background-image: -o-linear-gradient(top, #0088cc, #0077b3);
+  background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0)
+}
+
+.tt-suggestion.tt-is-under-cursor a {
+  color: #fff;
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+
+
+
+
+
+
+    </style>
+  </head>
+  <body>
+    <!--[if lt IE 8]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+<div class="container page">
+<div class="row">
+  <div class="col-sm-4 leftColumn">
+    <h1>unicode<span class="banner_it">it</span>.net <small>β&nbsp;testing</small></h1>
+  </div>
+
+  <div class="col-sm-8 rightColumn">
+    <h3>Online Demo</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <input type="text" class="form-control input-lg" placeholder="latex expression" id="latexInput">
+      </div>
+      <div class="col-md-6">
+        <input type="text" class="form-control input-lg" placeholder="unicode output" id="unicodeOutput">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-4 leftColumn">
+    <p>Created by <a href="http://www.svenkreiss.com">Sven Kreiss</a> and <a href="http://www.theoryandpractice.org">Kyle Cranmer</a>.<br />
+    Fork on <a href="https://github.com/svenkreiss/unicodeit">GitHub</a>.</p>    
+  </div>
+  <div class="col-sm-8 rightColumn">
+
+    <br /><br />
+
+    <h3>Download</h3>
+
+    <p>Download mac app at <a href="http://www.svenkreiss.com/UnicodeIt">www.svenkreiss.com/UnicodeIt</a>. There is also a modified version for Keynote 6 that copies the output to the clipboard and an app for linux.</p>
+
+
+    <h3>Help</h3>
+
+    <p>Type LaTeX expressions in the input box on the left. The result in the box on the right can be copied to most programs including PowerPoint and Keynote, e-mail clients like Outlook and Mail and even apps on smart phones. If you need a greek letter, an arrow or some other symbol in your presentation/email/chat/facebook, UnicodeIt creates it for you.</p>
+
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading" style="color:#999; font-weight:bold;">Examples</div>
+
+      <!-- Table -->
+      <table class="table examplesTable">
+        <tr><td></td><td class="latexExample">x \in (-\infty, \infty)</td><td>x ∈ (-∞, ∞)</td></tr>        
+        <tr><td></td><td class="latexExample">p\bar{p} \to \mu^+\mu^-</td><td>pp̅ → μ⁺μ⁻</td></tr>
+        <tr><td></td><td class="latexExample">\alpha\omega\epsilon\S\om\in</td><td>αωε§øm∈</td></tr>
+        <tr><td></td><td class="latexExample">^2H ^6Li ^{10}B ^{14}N</td><td>²H ⁶Li ¹⁰B ¹⁴N</td></tr>
+        <tr><td></td><td class="latexExample">\mathcal{L} \mathcal{H} \mathbb{R} \mathbb{C}</td><td>ℒ ℋ ℝ ℂ</td></tr>
+      </table>
+    </div>
+
+    <p>For more information visit <a href="http://www.svenkreiss.com/UnicodeIt">www.svenkreiss.com/UnicodeIt</a>.</p>
+
+
+  </div>
+</div>
+<br /><br /><br /><br />
+</div>
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="typeahead.min.js"></script>
+    <script src="unicodeit.js"></script>
+    <script>
+// copy replacements and sort case insensitive
+listOfReplacements = replacements.slice().sort(function (a, b) {
+    return a[0].toLowerCase().localeCompare(b[0].toLowerCase());
+});
+var indexOfFirstA = 0;
+for( var i in listOfReplacements ) {
+  if( listOfReplacements[i][0].slice(0,2).toLowerCase() == '\\a' ) {
+    indexOfFirstA = i;
+    break;
+  }
+}
+listOfReplacements = listOfReplacements.slice(i).concat(listOfReplacements.slice(0,i));
+listOfReplacements = listOfReplacements.map( function(r) {
+  return {
+    value:r[0], 
+    unicode:r[1]
+  };
+});
+$('input#latexInput').typeahead({
+  name: 'accounts',
+  local: listOfReplacements,
+  limit: 15,
+  template: function(datum) {return '<p><span style="display:inline-block;width:3em;">'+datum.unicode+'</span><strong>'+datum.value+'</strong></p>';}
+});
+$('input#latexInput').on('typeahead:selected', function (object, datum) {
+  $('input#unicodeOutput').val( datum.unicode );
+});
+$('.tt-query').css('background-color','#fff');
+$('input#latexInput').focus();
+
+$('.latexExample').on('click', function(e) {
+  $('input#latexInput').val( $(this).html() );
+  $('input#unicodeOutput').val( replace([$(this).html()]) );
+});
+
+$('input#latexInput').on('keyup', function(e) {
+  $('input#unicodeOutput').val( replace([$(this).val()]) );
+});
+    </script>
+  </body>
+</html>
