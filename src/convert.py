@@ -50,6 +50,7 @@ def addSymbols(replacements):
     replacements["\\sqrt"] = "221A"
     replacements["\\sqrt[3]"] = "221B"
     replacements["\\sqrt[4]"] = "221C"
+    replacements["\\neq"] = "2260"
                 
 
 #def addSubSuper(replacements):
@@ -269,7 +270,7 @@ def sortRule(i):
 replacements = sorted(replacements, key=sortRule)
 
 def escapeAll(i):
-    escape = ['\\', '.', '^', '$', '*', '+', '?', '{', '[', ']', '|', '(', ')', '\''] # backslash must be first
+    escape = ['\\', '.', '^', '$', '*', '+', '?', '{', '}', '[', ']', '|', '(', ')', '\''] # backslash must be first
     l = i
     
     for e in escape:
@@ -279,7 +280,7 @@ def escapeAll(i):
     
     return l
 
-# write converter script
+# write python converter script
 template = open("template.py", "r")
 out = open("unicodeit.py", "w")
 for t in template:
@@ -305,6 +306,35 @@ for t in template:
             l = escapeAll(l)
             out.write("    [ur'"+l+"', u'\\u"+u+"'],\n")
         out.write("]\n")
+    else:
+        out.write(t)
+
+# write js converter script
+template = open("template.js", "r")
+out = open("unicodeit.js", "w")
+for t in template:
+    if t[:16] == "var replacements":
+        out.write("var replacements = [\n")
+        for l,u in replacements:
+            l = escapeAll(l)
+            out.write("    ['"+l+"', '\\u"+u+"'],\n")
+        out.write("];\n")
+    elif t[:18] == "var combiningmarks":
+        combiningmarks = {}
+        addCombiningMarks(combiningmarks)
+        out.write("var combiningmarks = [\n")
+        for l,u in combiningmarks.items():
+            l = escapeAll(l)
+            out.write("    ['"+l+"', '\\u"+u+"'],\n")
+        out.write("];\n")
+    elif t[:19] == "var subsuperscripts":
+        subsuperscripts = {}
+        addSubSuperNoSlash(subsuperscripts)
+        out.write("var subsuperscripts = [\n")
+        for l,u in subsuperscripts.items():
+            l = escapeAll(l)
+            out.write("    ['"+l+"', '\\u"+u+"'],\n")
+        out.write("];\n")
     else:
         out.write(t)
 
