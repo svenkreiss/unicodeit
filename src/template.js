@@ -14,7 +14,7 @@ var replace = function(inp) {
             var c = combiningmarks[ic];
 
             var i = -1;
-            while( (i = f.indexOf(c[0],i+1)) > -1 ) {
+            while( (i = f.indexOf(c[0],i+1)) > -1   &&   f.indexOf("}") > i ) {
                 f = f.slice(0,i+1)+' '+f.slice(i+1);
             }
         }
@@ -28,12 +28,14 @@ var replace = function(inp) {
 
 
         // expand groups of subscripts: _{01234}    
+        var i = -1;
         while( (i = f.indexOf("_{")) > -1   &&   f.indexOf("}") > i ) {
             f = f.slice(0,i)+'_'+f[i+2]+'_{'+f.slice(i+3);
             f = f.replace('_{}','');
         }
             
         // expand groups of superscripts: ^{01234}    
+        var i = -1;
         while( (i = f.indexOf("^{")) > -1   &&   f.indexOf("}") > i ) {
             f = f.slice(0,i)+'^'+f[i+2]+'^{'+f.slice(i+3);
             f = f.replace('^{}','');
@@ -48,11 +50,12 @@ var replace = function(inp) {
 
 
         // combining marks (unicode char modifies previous char)
+        var i = -1;
         for( ic in combiningmarks ) {
             var c = combiningmarks[ic];
 
             var i = -1;
-            while( (i = f.indexOf('\\ '+c[0].slice(1)+'{',i+1)) > -1 ) {
+            while( (i = f.indexOf('\\ '+c[0].slice(1)+'{',i+1)) > -1   &&   f.indexOf("}") > i ) {
                 var newString = f[i+c[0].length+2] + c[1];
                 f = f.slice(0,i)+newString+f.slice(i+1+c[0].length+3);
             }
