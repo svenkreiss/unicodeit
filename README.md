@@ -7,33 +7,14 @@ Converts latex tags into unicode. Available online at www.unicodeit.net or as Au
 * Introductory Slides: http://www.svenkreiss.com/wiki/images/5/5e/UnicodeItSlides.pdf
 
 
+## Examples
 
-# Development Notes
-
-### Creating Automator Release
-
-```
-cd src
-python convert.py
-```
-
-* Open unicodeit.py with some editor and copy it's content.
-* Open Automator and the workflow that sits in the computers `Services` directory.
-* Paste.
-* `Export...` the workflow into the Automator directory.
-* Open the directory in Finder.
-* Select `LICENSE` and the workflow file: `Compress`, rename, move to `versions` folder in gh-pages branch.
-* Update link on `unicodeit.net`.
-
-Repeat for `clipboard` version.
-
-
-### Updating unicodeit.net
-
-```
-cd src
-python convert.py
-```
-
-* `cp unicodeit.js ../../UnicodeitGhPages/`
-
+| \alpha α, \beta β, \infty ∞    |   e^+ e⁺, \mu^- μ⁻     |
+| \int ∫, \sum ∑, \partial ∂     |   \to →, p\bar{p} pp̅   |
+| \slash{\partial} ∂̸             |   \underline{x} x̲      |
+| \dot{x} ẋ, \ddot{x} ẍ          |   A^6 A⁶, m_0 m₀       |
+| \gamma γ, \Gamma Γ             |   \~{O} Õ              |
+| \sfrac{3}{5} ⅗                 |   \therefore ∴, \because ∵   |
+| \perp ⊥, \parallel ∥           |   \subset ⊂, \supset ⊃   |
+| \phone ☎, \checkmark ✓         |   \Im ℑ, \Re ℜ, \hbar ℏ  |
+| \exists ∃, \nexists ∄          |                          |
