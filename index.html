@@ -223,7 +223,23 @@ $('input#latexInput').typeahead({
   name: 'accounts',
   local: listOfReplacements,
   limit: 15,
-  template: function(datum) {return '<p><span style="display:inline-block;width:3em;">'+datum.unicode+'</span><strong>'+datum.value+'</strong></p>';}
+  template: function(datum) {return '<p><span style="display:inline-block;width:3em;">'+datum.unicode+'</span><strong>'+datum.value+'</strong></p>';},
+
+  matcher: function(item) {
+    console.log("matcher");
+    console.log(item);
+
+    if( item.lastIndexOf('\\') != -1 ) {
+      return item.substr(item.lastIndexOf('\\'));
+    }
+    return item;
+  },
+  updater: function(item) {
+    console.log("updater");
+    console.log(item);
+
+    return this.$element.val();
+  }
 });
 $('input#latexInput').on('typeahead:selected', function (object, datum) {
   $('input#unicodeOutput').val( datum.unicode );
