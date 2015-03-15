@@ -34,7 +34,7 @@
 
       .footer { color:#ccc; font-size:80%; }
       .footer a { color:#ccc; }
-      
+
       ul {
         list-style: none;
         margin: 0;
@@ -46,11 +46,17 @@
       }
 
       input { margin:5px; }
-      .latexExample { 
-        cursor:pointer; 
-        max-width:9em; 
-        overflow:hidden; 
-        text-overflow:ellipsis; 
+      .latexExample {
+        cursor:pointer;
+        max-width:9em;
+        overflow:hidden;
+        text-overflow:ellipsis;
+      }
+
+      .permalink {
+        display: inline-block;
+        margin: 1em 1em 1em 0.5em;
+        font-size: 85%;
       }
 
 
@@ -84,7 +90,7 @@ width:100%;
   -webkit-background-clip: padding-box;
      -moz-background-clip: padding;
           background-clip: padding-box;
-  width:100%;        
+  width:100%;
 }
 
 .tt-suggestion {
@@ -140,13 +146,16 @@ width:100%;
         <input type="text" class="form-control input-lg" placeholder="unicode output" id="unicodeOutput">
       </div>
     </div>
+    <p>
+      <a class="permalink" href="">Permalink</a>
+    </p>
   </div>
 </div>
 
 <div class="row">
   <div class="col-sm-4 leftColumn">
     <p>Created by <a href="http://www.svenkreiss.com">Sven Kreiss</a> and <a href="http://www.theoryandpractice.org">Kyle Cranmer</a>.<br />
-    Fork on <a href="https://github.com/svenkreiss/unicodeit">GitHub</a>.</p>    
+    Fork on <a href="https://github.com/svenkreiss/unicodeit">GitHub</a>.</p>
 
 
     <p>
@@ -182,7 +191,7 @@ width:100%;
 
       <!-- Table -->
       <table class="table examplesTable">
-        <tr><td></td><td class="latexExample">x \in (-\infty, \infty)</td><td>x ∈ (-∞, ∞)</td></tr>        
+        <tr><td></td><td class="latexExample">x \in (-\infty, \infty)</td><td>x ∈ (-∞, ∞)</td></tr>
         <tr><td></td><td class="latexExample">p\bar{p} \to \mu^+\mu^-</td><td>pp̅ → μ⁺μ⁻</td></tr>
         <tr><td></td><td class="latexExample">\alpha\omega\epsilon\S\om\in</td><td>αωε§øm∈</td></tr>
         <tr><td></td><td class="latexExample">^2H ^6Li ^{10}B ^{14}N</td><td>²H ⁶Li ¹⁰B ¹⁴N</td></tr>
@@ -198,8 +207,8 @@ width:100%;
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-    <script src="typeahead.min.js"></script>
-    <script src="unicodeit.js"></script>
+    <script src="typeahead.min.js?version=0.10.5"></script>
+    <script src="unicodeit.js?version=0.6.2"></script>
     <script>
 // copy replacements and sort case insensitive
 listOfReplacements = replacements.slice().sort(function (a, b) {
@@ -214,10 +223,7 @@ for( var i in listOfReplacements ) {
 }
 listOfReplacements = listOfReplacements.slice(i).concat(listOfReplacements.slice(0,i));
 listOfReplacements = listOfReplacements.map( function(r) {
-  return {
-    value:r[0], 
-    unicode:r[1]
-  };
+  return { value: r[0], unicode: r[1] };
 });
 $('input#latexInput').typeahead({
   name: 'accounts',
@@ -232,18 +238,24 @@ $('.tt-query').css('background-color','#fff');
 $('input#latexInput').focus();
 
 $('.latexExample').on('click', function(e) {
-  $('input#latexInput').val( $(this).html() );
-  $('input#unicodeOutput').val( replace([$(this).html()]) );
+  $('input#latexInput')
+    .typeahead('val', $(this).html() )
+    .trigger('change')
+    .focus();
 });
 
 $('input#latexInput').on('keyup change', function(e) {
   $('input#unicodeOutput').val( replace([$(this).val()]) );
+  $('.permalink').attr('href', 'http://www.unicodeit.net/?'+$(this).val());
 });
 
 
 if(location.search) {
-	var latex = location.search.slice(1);
-	$('input#latexInput').val(latex).trigger('change');
+  var latex = location.search.slice(1);
+  $('input#latexInput')
+    .typeahead('val', latex)
+    .trigger('change')
+    .focus();
 }
     </script>
 
