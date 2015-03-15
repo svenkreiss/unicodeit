@@ -250,8 +250,8 @@ $('input#latexInput').on('keyup change', function(e) {
 });
 
 
-if(location.search) {
-  var latex = location.search.slice(1);
+if (location.search) {
+  var latex = decodeURIComponent(location.search.slice(1));
   $('input#latexInput')
     .typeahead('val', latex)
     .trigger('change')
