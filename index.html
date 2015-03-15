@@ -246,7 +246,7 @@ $('.latexExample').on('click', function(e) {
 
 $('input#latexInput').on('keyup change', function(e) {
   $('input#unicodeOutput').val( replace([$(this).val()]) );
-  $('.permalink').attr('href', 'http://www.unicodeit.net/?'+$(this).val());
+  $('.permalink').attr('href', 'http://www.unicodeit.net/?'+encodeURIComponent($(this).val()));
 });
 
 
