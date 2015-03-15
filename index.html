@@ -236,9 +236,15 @@ $('.latexExample').on('click', function(e) {
   $('input#unicodeOutput').val( replace([$(this).html()]) );
 });
 
-$('input#latexInput').on('keyup', function(e) {
+$('input#latexInput').on('keyup change', function(e) {
   $('input#unicodeOutput').val( replace([$(this).val()]) );
 });
+
+
+if(location.search) {
+	var latex = location.search.slice(1);
+	$('input#latexInput').val(latex).trigger('change');
+}
     </script>
 
     <script>
