@@ -211,40 +211,56 @@ width:100%;
     <script src="unicodeit.js?version=0.6.2"></script>
     <script>
 // copy replacements and sort case insensitive
-listOfReplacements = replacements.slice().sort(function (a, b) {
-    return a[0].toLowerCase().localeCompare(b[0].toLowerCase());
-});
-var indexOfFirstA = 0;
-for( var i in listOfReplacements ) {
-  if( listOfReplacements[i][0].slice(0,2).toLowerCase() == '\\a' ) {
-    indexOfFirstA = i;
-    break;
-  }
-}
-listOfReplacements = listOfReplacements.slice(i).concat(listOfReplacements.slice(0,i));
-listOfReplacements = listOfReplacements.map( function(r) {
-  return { value: r[0], unicode: r[1] };
-});
-$('input#latexInput').typeahead({
-  name: 'accounts',
+var listOfReplacements = replacements
+  .map(function(r) { return { value: r[0], unicode: r[1] }; })
+  .sort(function(a, b) { return a.value.toLowerCase().localeCompare(b.value.toLowerCase()); });
+
+// reorder such that when just typing '\' suggestions starting with '\a' appear
+var indexOfFirstA = listOfReplacements
+  .map(function(r) { return r.value.slice(0, 2).toLowerCase(); })
+  .indexOf('\\a');
+listOfReplacements = listOfReplacements.slice(indexOfFirstA).concat(listOfReplacements.slice(0, indexOfFirstA));
+
+
+// Bloodhound: the source (dataset) for typeahead
+var mySource = new Bloodhound({
+  datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.value); },
+  queryTokenizer: function(d) { var i = d.lastIndexOf('\\'); var r = [d.substr(0, i), d.substr(i)]; console.log(r); return r; },
   local: listOfReplacements,
   limit: 15,
-  template: function(datum) {return '<p><span style="display:inline-block;width:3em;">'+datum.unicode+'</span><strong>'+datum.value+'</strong></p>';},
 });
-$('input#latexInput').on('typeahead:selected', function (object, datum) {
-  $('input#unicodeOutput').val( datum.unicode );
-});
-$('.tt-query').css('background-color','#fff');
-$('input#latexInput').focus();
+mySource.initialize();
 
+// apply typeahead to input text field
+$('#latexInput').typeahead(null, {
+  displayKey: 'value',
+  source: mySource.ttAdapter(),
+  hint: false,
+  templates: {
+    suggestion: function(datum) {
+      return '<div><span style="display:inline-block;width:3em;">'+datum.unicode+'</span><strong>'+datum.value+'</strong></div>';
+    },
+  },
+});
+
+
+$('#latexInput').on('typeahead:selected', function (object, datum) {
+  $('input#unicodeOutput').val(datum.unicode);
+});
+// $('.tt-query').css('background-color','#fff');
+$('#latexInput').focus();
+
+
+// click handler for LaTeX examples
 $('.latexExample').on('click', function(e) {
-  $('input#latexInput')
-    .typeahead('val', $(this).html() )
+  $('#latexInput')
+    .typeahead('val', $(this).html())
     .trigger('change')
     .focus();
 });
 
-$('input#latexInput').on('keyup change', function(e) {
+// generate unicode output and permalink
+$('#latexInput').on('keyup change', function(e) {
   $('input#unicodeOutput').val( replace([$(this).val()]) );
   $('.permalink').attr('href', 'http://www.unicodeit.net/?'+encodeURIComponent($(this).val()));
 });
@@ -252,7 +268,7 @@ $('input#latexInput').on('keyup change', function(e) {
 
 if (location.search) {
   var latex = decodeURIComponent(location.search.slice(1));
-  $('input#latexInput')
+  $('#latexInput')
     .typeahead('val', latex)
     .trigger('change')
     .focus();
