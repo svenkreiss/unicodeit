@@ -22,7 +22,7 @@ def addSymbols(replacements):
             
             unicodeElement = n.find('unicode')
             if unicodeElement is not None:
-                if unicodeElement.attrib.has_key('value'):
+                if 'value' in unicodeElement.attrib:
                     unicode = unicodeElement.attrib['value']
             
             latexElement = n.find('latex/seq') 
@@ -115,11 +115,11 @@ def addSubSuperNoSlash(replacements):
     replacements["_r"] = "1D63"
     replacements["_u"] = "1D64"
     replacements["_v"] = "1D65"
-    replacements["_\u03B2"] = "1D66" #beta
-    replacements["_\u03B3"] = "1D67" #gamma
-    replacements["_\u03C1"] = "1D68" #rho
-    replacements["_\u03C6"] = "1D69" #phi
-    replacements["_\u03C7"] = "1D6A" #chi
+    replacements["_\\u03B2"] = "1D66" #beta
+    replacements["_\\u03B3"] = "1D67" #gamma
+    replacements["_\\u03C1"] = "1D68" #rho
+    replacements["_\\u03C6"] = "1D69" #phi
+    replacements["_\\u03C7"] = "1D6A" #chi
     
     # superscripts
     replacements["^0"] = "2070"
@@ -190,12 +190,12 @@ def addSubSuperNoSlash(replacements):
     replacements["^y"] = "02B8"
     replacements["^z"] = "1DBB"
     
-    replacements["^\u03B2"] = "1D5D" #beta
-    replacements["^\u03B3"] = "1D5E" #gamma
-    replacements["^\u03B4"] = "1D5F" #delta
-    replacements["^\u03C6"] = "1D60" #phi
-    replacements["^\u03C7"] = "1D61" #chi
-    replacements["^\u222B"] = "1DB4" #int
+    replacements["^\\u03B2"] = "1D5D" #beta
+    replacements["^\\u03B3"] = "1D5E" #gamma
+    replacements["^\\u03B4"] = "1D5F" #delta
+    replacements["^\\u03C6"] = "1D60" #phi
+    replacements["^\\u03C7"] = "1D61" #chi
+    replacements["^\\u222B"] = "1DB4" #int
 
 
     
@@ -264,7 +264,7 @@ addMathLetterlike(replacements)
 
 #print replacements
 
-replacements = replacements.items()
+replacements = list(replacements.items())
 
 def sortRule(i):
     return -len(i[0])
@@ -289,23 +289,23 @@ for t in template:
         out.write("replacements = [\n")
         for l,u in replacements:
             l = escapeAll(l)
-            out.write("    (ur'"+l+"', u'\\u"+u+"'),\n")
+            out.write("    (r'"+l+"', '\\u"+u+"'),\n")
         out.write("]\n")
     elif t[:14] == "combiningmarks":
         combiningmarks = {}
         addCombiningMarks(combiningmarks)
         out.write("combiningmarks = [\n")
-        for l,u in combiningmarks.items():
+        for l,u in list(combiningmarks.items()):
             l = escapeAll(l)
-            out.write("    (ur'"+l+"', u'\\u"+u+"'),\n")
+            out.write("    (r'"+l+"', '\\u"+u+"'),\n")
         out.write("]\n")
     elif t[:15] == "subsuperscripts":
         subsuperscripts = {}
         addSubSuperNoSlash(subsuperscripts)
         out.write("subsuperscripts = [\n")
-        for l,u in subsuperscripts.items():
+        for l,u in list(subsuperscripts.items()):
             l = escapeAll(l)
-            out.write("    (ur'"+l+"', u'\\u"+u+"'),\n")
+            out.write("    (r'"+l+"', '\\u"+u+"'),\n")
         out.write("]\n")
     else:
         out.write(t)
@@ -324,7 +324,7 @@ for t in template:
         combiningmarks = {}
         addCombiningMarks(combiningmarks)
         out.write("var combiningmarks = [\n")
-        for l,u in combiningmarks.items():
+        for l,u in list(combiningmarks.items()):
             l = escapeAll(l)
             out.write("    ['"+l+"', '\\u"+u+"'],\n")
         out.write("];\n")
@@ -332,14 +332,14 @@ for t in template:
         subsuperscripts = {}
         addSubSuperNoSlash(subsuperscripts)
         out.write("var subsuperscripts = [\n")
-        for l,u in subsuperscripts.items():
+        for l,u in list(subsuperscripts.items()):
             l = escapeAll(l)
             out.write("    ['"+l+"', '\\u"+u+"'],\n")
         out.write("];\n")
     else:
         out.write(t)
 
-print "No of replacements: %d" % (len(replacements)+len(combiningmarks)+len(subsuperscripts))
+print("No of replacements: %d" % (len(replacements)+len(combiningmarks)+len(subsuperscripts)))
 
 
 
@@ -349,57 +349,57 @@ def nicePrint(i):
 def printFromFunction(f):    
     r = {}
     f(r)
-    r = r.items()
+    r = list(r.items())
     r = sorted(r, key=nicePrint)
     for l,u in r:
-        if l == "_\u03B2": l = "_{\\beta}"
-        if l == "_\u03B3": l = "_{\\gamma}"
-        if l == "_\u03C1": l = "_{\\rho}"
-        if l == "_\u03C6": l = "_{\\phi}"
-        if l == "_\u03C7": l = "_{\\chi}"
-        print "%20s  \t %s" % (l, unichr(int(u, 16)).encode("utf-8"))
+        if l == "_\\u03B2": l = "_{\\beta}"
+        if l == "_\\u03B3": l = "_{\\gamma}"
+        if l == "_\\u03C1": l = "_{\\rho}"
+        if l == "_\\u03C6": l = "_{\\phi}"
+        if l == "_\\u03C7": l = "_{\\chi}"
+        print("%20s  \t %s" % (l, chr(int(u, 16)).encode("utf-8")))
 def jsonFromFunctions(functions):    
     r = {}
     for f in functions:
         f(r)
-    r = r.items()
+    r = list(r.items())
     #r = sorted(r, key=nicePrint)
     for l,u in r:
-        if l == "_\u03B2": l = "_{\\beta}"
-        if l == "_\u03B3": l = "_{\\gamma}"
-        if l == "_\u03C1": l = "_{\\rho}"
-        if l == "_\u03C6": l = "_{\\phi}"
-        if l == "_\u03C7": l = "_{\\chi}"
+        if l == "_\\u03B2": l = "_{\\beta}"
+        if l == "_\\u03B3": l = "_{\\gamma}"
+        if l == "_\\u03C1": l = "_{\\rho}"
+        if l == "_\\u03C6": l = "_{\\phi}"
+        if l == "_\\u03C7": l = "_{\\chi}"
         
         #print '"%s %s",' % (l, unichr(int(u, 16)).encode("utf-8")),
         if len(re.split('"',l)) > 1: continue
         if len(re.split("'",l)) > 1: continue
         if l[0]=="\\"  and  len(l) <= 2: continue
-        print '"%s",' % (escapeAll(l)),
+        print('"%s",' % (escapeAll(l)), end=' ')
     
-print "Sub- and Superscripts"
-print "=============================="
+print("Sub- and Superscripts")
+print("==============================")
 printFromFunction(addSubSuperNoSlash)
-print ""
-print "Letterlike Symbols"
-print "=============================="
+print("")
+print("Letterlike Symbols")
+print("==============================")
 printFromFunction(addMathLetterlike)
-print ""
-print "Emoticons"
-print "=============================="
+print("")
+print("Emoticons")
+print("==============================")
 printFromFunction(addEmoticons)
-print ""
-print "Combining Marks"
-print "=============================="
+print("")
+print("Combining Marks")
+print("==============================")
 printFromFunction(addCombiningMarks)
-print ""
-print "Symbols"
-print "=============================="
+print("")
+print("Symbols")
+print("==============================")
 printFromFunction(addSymbols)
 
 
-print ""
-print "JSON"
-print "=============================="
+print("")
+print("JSON")
+print("==============================")
 jsonFromFunctions([addSymbols,addSubSuperNoSlash,addMathLetterlike,addEmoticons,addCombiningMarks])
 
