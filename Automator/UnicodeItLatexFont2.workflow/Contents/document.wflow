@@ -259,6 +259,7 @@ replacements = [
     [ur'\\doteqdot', u'\u2251'],
     [ur'\\clubsuit', u'\u2663'],
     [ur'\\emptyset', u'\u2205'],
+    [ur'\\varnothing', u'\u2205'],
     [ur'\\sqsupset', u'\u2290'],
     [ur'\\fbox\{~~}', u'\u25AD'],
     [ur'\\curlyvee', u'\u22CE'],

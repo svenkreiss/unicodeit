@@ -200,6 +200,7 @@ replacements = [
     (r'\\doteqdot', '\u2251'),
     (r'\\clubsuit', '\u2663'),
     (r'\\emptyset', '\u2205'),
+    (r'\\varnothing', '\u2205'),
     (r'\\sqsupset', '\u2290'),
     (r'\\fbox\{~~\}', '\u25AD'),
     (r'\\curlyvee', '\u22CE'),
