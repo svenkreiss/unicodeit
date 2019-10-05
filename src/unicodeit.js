@@ -197,6 +197,7 @@ var replacements = [
     ['\\doteqdot', '\u2251'],
     ['\\clubsuit', '\u2663'],
     ['\\emptyset', '\u2205'],
+    ['\\varnothing', '\u2205'],
     ['\\sqsupset', '\u2290'],
     ['\\fbox\{~~\}', '\u25AD'],
     ['\\curlyvee', '\u22CE'],
