@@ -126,6 +126,8 @@ replacements = [
     (r'\\sfrac\{1\}\{4\}', '\u00BC'),
     (r'\\mathbb\{Pi\}', '\u213F'),
     (r'\\mathcal\{M\}', '\u2133'),
+    (r'\\mathcal\{o\}', '\u02134'),
+    (r'\\mathcal\{O\}', '\u1D4AA'),
     (r'\\nsupseteqq', '\u2289'),
     (r'\\mathcal\{B\}', '\u212C'),
     (r'\\textrecipe', '\u211E'),
