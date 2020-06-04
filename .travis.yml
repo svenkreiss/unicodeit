@@ -29,6 +29,6 @@ matrix:
 install:
  - "pip3 install --editable .[dev]"
 script:
- - pylint unicodeit --disable=fixme
+ - pylint unicodeit/convert.py --disable=fixme
  - pylint tests/*.py --disable=fixme
  - pytest -vv

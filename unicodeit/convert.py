@@ -1,11 +1,3 @@
-
-#
-# test case:
-# python unicodeit.py \\Sigma def\\Sigma_{01234}abc\\alpha_{567}ggg\\beta_{1234}lll "\\Sigma e_0 e^3" def^{01234}abc\\alpha^{567abc}ggg\\beta^{1234=\(5\)}lll "\\:) \\:G"
-# python unicodeit.py a_{\\beta\\gamma\\phi\\rho\\chi} b_{aeox} c_{hklmnpst} d_j
-# python unicodeit.py "m^{ABDEGHIJKLMNOPRTUWabcdefghiklmnoprstuvwxyz\beta\gamma\delta\phi\chi<>}"
-#
-
 import re
 from xml.etree import ElementTree as ET
 
@@ -16,35 +8,38 @@ replacements = {}
 def addSymbols(replacements):
     #isoent
     for n in nodes:
-        if(n.tag == 'char'):
+        if n.tag == 'char':
             unicode = ''
             latex = ''
-            
+
             unicodeElement = n.find('unicode')
             if unicodeElement is not None:
                 if 'value' in unicodeElement.attrib:
                     unicode = unicodeElement.attrib['value']
-            
-            latexElement = n.find('latex/seq') 
+
+            latexElement = n.find('latex/seq')
             if latexElement is not None:
                 latex = latexElement.text
-                    
-            latexElement = n.find('latex/mathseq') 
+
+            latexElement = n.find('latex/mathseq')
             if latexElement is not None:
                 latex = latexElement.text
-                
+
             # remove elements of the form "\^{A}" and "\_{A}"
-            if len(latex) == 5 and latex[2] == "{" and latex[4] == "}" and (latex[1] in ['^','_']):
+            if len(latex) == 5 and latex[2] == "{" and latex[4] == "}" and (latex[1] in ['^', '_']):
                 continue
-    
+
             #  and latex.find('{') == -1 and latex.find('}') == -1
-            if unicode and latex and latex[0] == '\\' and latex.find('\\',1) == -1 and latex != "\\backslash":
+            if unicode and latex \
+               and latex[0] == '\\' \
+               and latex.find('\\', 1) == -1 \
+               and latex != "\\backslash":
                 replacements[latex] = unicode
-                
+
     # alias
     replacements["\\to"] = "2192"
 
-    # other symbols    
+    # other symbols
     replacements["\\degree"] = "00B0"
     replacements["\\star"] = "002A"
     replacements["\\sqrt"] = "221A"
@@ -52,10 +47,11 @@ def addSymbols(replacements):
     replacements["\\sqrt[4]"] = "221C"
     replacements["\\neq"] = "2260"
     replacements["\\ne"] = "2260"
-                
+
 
 #def addSubSuper(replacements):
-#    # sub- and superscript replacements from http://en.wikipedia.org/wiki/Unicode_subscripts_and_superscripts
+#    # sub- and superscript replacements from
+#    # http://en.wikipedia.org/wiki/Unicode_subscripts_and_superscripts
 #    # ascii part from http://www.w3schools.com/tags/ref_entities.asp
 #
 #    # subscripts
@@ -84,13 +80,17 @@ def addSymbols(replacements):
 #    replacements["\\^n"] = "207F"
 #    replacements["\\^i"] = "2071"
 #    replacements["\\^*"] = "002A"
-    
+
+
+# pylint: disable=too-many-statements
 def addSubSuperNoSlash(replacements):
-    # sub- and superscript replacements from http://en.wikipedia.org/wiki/Unicode_subscripts_and_superscripts
+    # sub- and superscript replacements from
+    # http://en.wikipedia.org/wiki/Unicode_subscripts_and_superscripts
     # ascii part from http://www.w3schools.com/tags/ref_entities.asp
 
     # subscripts
-    for i in range(10): replacements["_"+str(i)] = "208"+str(i)
+    for i in range(10):
+        replacements["_"+str(i)] = "208"+str(i)
     replacements["_+"] = "208A"
     replacements["_-"] = "208B"
     replacements["_="] = "208C"
@@ -120,7 +120,7 @@ def addSubSuperNoSlash(replacements):
     replacements["_\\u03C1"] = "1D68" #rho
     replacements["_\\u03C6"] = "1D69" #phi
     replacements["_\\u03C7"] = "1D6A" #chi
-    
+
     # superscripts
     replacements["^0"] = "2070"
     replacements["^1"] = "00B9"#"20B9"
@@ -140,7 +140,7 @@ def addSubSuperNoSlash(replacements):
     replacements["^*"] = "002A"
     replacements["^<"] = "02C2"
     replacements["^>"] = "02C3"
-    
+
     # from http://en.wikipedia.org/wiki/Phonetic_symbols_in_Unicode
     # and there are a couple of more signs, that are not added yet
     replacements["^A"] = "1D2C"
@@ -189,7 +189,7 @@ def addSubSuperNoSlash(replacements):
     replacements["^x"] = "02E3"
     replacements["^y"] = "02B8"
     replacements["^z"] = "1DBB"
-    
+
     replacements["^\\u03B2"] = "1D5D" #beta
     replacements["^\\u03B3"] = "1D5E" #gamma
     replacements["^\\u03B4"] = "1D5F" #delta
@@ -198,7 +198,7 @@ def addSubSuperNoSlash(replacements):
     replacements["^\\u222B"] = "1DB4" #int
 
 
-    
+
 def addEmoticons(replacements):
     replacements["\\smile"] = "263A"
     replacements["\\:)"] = "263A"
@@ -206,7 +206,7 @@ def addEmoticons(replacements):
     replacements["\\:("] = "2639"
     replacements["\\happy"] = "32E1"
     replacements["\\:G"] = "32E1"
-    
+
 def addMathLetterlike(replacements):
     replacements["\\h"] = "210E"
     replacements["\\i"] = "2139"
@@ -254,7 +254,7 @@ def addCombiningMarks(replacements):
     replacements["\\doubleunderline"] = "0333"
     replacements["\\strikethrough"] = "0335"
     replacements["\\slash"] = "0338"
-    
+
 
 addSymbols(replacements)
 #addSubSuperNoSlash(replacements) # handled separately, do not add here
@@ -271,14 +271,30 @@ def sortRule(i):
 replacements = sorted(replacements, key=sortRule)
 
 def escapeAll(i):
-    escape = ['\\', '.', '^', '$', '*', '+', '?', '{', '}', '[', ']', '|', '(', ')', '\''] # backslash must be first
+    escape = [
+        '\\',
+        '.',
+        '^',
+        '$',
+        '*',
+        '+',
+        '?',
+        '{',
+        '}',
+        '[',
+        ']',
+        '|',
+        '(',
+        ')',
+        '\'',
+    ]  # backslash must be first
     l = i
-    
+
     for e in escape:
         l = l.replace(e, '\\'+e)
     #undo escaped unicode \u
     l = re.sub(r'\\\\u([0-9A-Fa-f]{4})', r'\\u\1', l)
-    
+
     return l
 
 # write python converter script
@@ -287,7 +303,7 @@ out = open("unicodeit.py", "w")
 for t in template:
     if t[:12] == "replacements":
         out.write("replacements = [\n")
-        for l,u in replacements:
+        for l, u in replacements:
             l = escapeAll(l)
             out.write("    (r'"+l+"', '\\u"+u+"'),\n")
         out.write("]\n")
@@ -295,7 +311,7 @@ for t in template:
         combiningmarks = {}
         addCombiningMarks(combiningmarks)
         out.write("combiningmarks = [\n")
-        for l,u in list(combiningmarks.items()):
+        for l, u in list(combiningmarks.items()):
             l = escapeAll(l)
             out.write("    (r'"+l+"', '\\u"+u+"'),\n")
         out.write("]\n")
@@ -303,7 +319,7 @@ for t in template:
         subsuperscripts = {}
         addSubSuperNoSlash(subsuperscripts)
         out.write("subsuperscripts = [\n")
-        for l,u in list(subsuperscripts.items()):
+        for l, u in list(subsuperscripts.items()):
             l = escapeAll(l)
             out.write("    (r'"+l+"', '\\u"+u+"'),\n")
         out.write("]\n")
@@ -316,7 +332,7 @@ out = open("unicodeit.js", "w")
 for t in template:
     if t[:16] == "var replacements":
         out.write("var replacements = [\n")
-        for l,u in replacements:
+        for l, u in replacements:
             l = escapeAll(l)
             out.write("    ['"+l+"', '\\u"+u+"'],\n")
         out.write("];\n")
@@ -324,7 +340,7 @@ for t in template:
         combiningmarks = {}
         addCombiningMarks(combiningmarks)
         out.write("var combiningmarks = [\n")
-        for l,u in list(combiningmarks.items()):
+        for l, u in list(combiningmarks.items()):
             l = escapeAll(l)
             out.write("    ['"+l+"', '\\u"+u+"'],\n")
         out.write("];\n")
@@ -332,7 +348,7 @@ for t in template:
         subsuperscripts = {}
         addSubSuperNoSlash(subsuperscripts)
         out.write("var subsuperscripts = [\n")
-        for l,u in list(subsuperscripts.items()):
+        for l, u in list(subsuperscripts.items()):
             l = escapeAll(l)
             out.write("    ['"+l+"', '\\u"+u+"'],\n")
         out.write("];\n")
@@ -346,37 +362,50 @@ print("No of replacements: %d" % (len(replacements)+len(combiningmarks)+len(subs
 # list all replacements
 def nicePrint(i):
     return i[0]
-def printFromFunction(f):    
+def printFromFunction(f):
     r = {}
     f(r)
     r = list(r.items())
     r = sorted(r, key=nicePrint)
-    for l,u in r:
-        if l == "_\\u03B2": l = "_{\\beta}"
-        if l == "_\\u03B3": l = "_{\\gamma}"
-        if l == "_\\u03C1": l = "_{\\rho}"
-        if l == "_\\u03C6": l = "_{\\phi}"
-        if l == "_\\u03C7": l = "_{\\chi}"
+    for l, u in r:
+        if l == "_\\u03B2":
+            l = "_{\\beta}"
+        if l == "_\\u03B3":
+            l = "_{\\gamma}"
+        if l == "_\\u03C1":
+            l = "_{\\rho}"
+        if l == "_\\u03C6":
+            l = "_{\\phi}"
+        if l == "_\\u03C7":
+            l = "_{\\chi}"
         print("%20s  \t %s" % (l, chr(int(u, 16)).encode("utf-8")))
-def jsonFromFunctions(functions):    
+def jsonFromFunctions(functions):
     r = {}
     for f in functions:
         f(r)
     r = list(r.items())
     #r = sorted(r, key=nicePrint)
-    for l,u in r:
-        if l == "_\\u03B2": l = "_{\\beta}"
-        if l == "_\\u03B3": l = "_{\\gamma}"
-        if l == "_\\u03C1": l = "_{\\rho}"
-        if l == "_\\u03C6": l = "_{\\phi}"
-        if l == "_\\u03C7": l = "_{\\chi}"
-        
+    for l, _ in r:
+        if l == "_\\u03B2":
+            l = "_{\\beta}"
+        if l == "_\\u03B3":
+            l = "_{\\gamma}"
+        if l == "_\\u03C1":
+            l = "_{\\rho}"
+        if l == "_\\u03C6":
+            l = "_{\\phi}"
+        if l == "_\\u03C7":
+            l = "_{\\chi}"
+
         #print '"%s %s",' % (l, unichr(int(u, 16)).encode("utf-8")),
-        if len(re.split('"',l)) > 1: continue
-        if len(re.split("'",l)) > 1: continue
-        if l[0]=="\\"  and  len(l) <= 2: continue
+        if len(re.split('"', l)) > 1:
+            continue
+        if len(re.split("'", l)) > 1:
+            continue
+        if l[0] == "\\" and len(l) <= 2:
+            continue
         print('"%s",' % (escapeAll(l)), end=' ')
-    
+
 print("Sub- and Superscripts")
 print("==============================")
 printFromFunction(addSubSuperNoSlash)
@@ -401,5 +430,10 @@ printFromFunction(addSymbols)
 print("")
 print("JSON")
 print("==============================")
-jsonFromFunctions([addSymbols,addSubSuperNoSlash,addMathLetterlike,addEmoticons,addCombiningMarks])
-
+jsonFromFunctions([
+    addSymbols,
+    addSubSuperNoSlash,
+    addMathLetterlike,
+    addEmoticons,
+    addCombiningMarks,
+])
