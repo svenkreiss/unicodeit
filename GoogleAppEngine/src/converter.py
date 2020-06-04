@@ -122,6 +122,8 @@ replacements = [
     [r'\\sfrac\{1}\{4}', u'\u00BC'],
     [r'\\mathbb\{Pi}', u'\u213F'],
     [r'\\mathcal\{M}', u'\u2133'],
+    [r'\\mathcal\{O}', u'\u1D4AA'],
+    [r'\\mathcal\{o}', u'\u02134'],
     [r'\\nsupseteqq', u'\u2289'],
     [r'\\mathcal\{B}', u'\u212C'],
     [r'\\textrecipe', u'\u211E'],

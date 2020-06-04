@@ -123,6 +123,8 @@ var replacements = [
     ['\\sfrac\{1\}\{4\}', '\u00BC'],
     ['\\mathbb\{Pi\}', '\u213F'],
     ['\\mathcal\{M\}', '\u2133'],
+    ['\\mathcal\{o\}', '\u02134'],
+    ['\\mathcal\{O\}', '\u1D4AA'],    
     ['\\nsupseteqq', '\u2289'],
     ['\\mathcal\{B\}', '\u212C'],
     ['\\textrecipe', '\u211E'],
