@@ -13,7 +13,7 @@ def test_cli_symbols1():
         '\\Sigma'
     ])
     print(r.decode())
-    assert r.decode() == 'Σ\n'
+    assert r.decode().strip() == 'Σ'
 
 
 def test_cli_symbols2():
@@ -22,7 +22,7 @@ def test_cli_symbols2():
         'def\\Sigma_{01234}abc\\alpha_{567}ggg\\beta_{1234}lll "\\Sigma e_0 e^3"'
     ])
     print(r.decode())
-    assert r.decode() == 'defΣ₀₁₂₃₄abcα₅₆₇gggβ₁₂₃₄lll "Σ e₀ e³"\n'
+    assert r.decode().strip() == 'defΣ₀₁₂₃₄abcα₅₆₇gggβ₁₂₃₄lll "Σ e₀ e³"'
 
 
 def test_cli_symbols3():
@@ -31,7 +31,7 @@ def test_cli_symbols3():
         'def^{01234}abc\\alpha^{567abc} "\\:) \\:G"'
     ])
     print(r.decode())
-    assert r.decode() == 'def⁰¹²³⁴abcα⁵⁶⁷ᵃᵇᶜ "☺ ㋡"\n'
+    assert r.decode().strip() == 'def⁰¹²³⁴abcα⁵⁶⁷ᵃᵇᶜ "☺ ㋡"'
 
 
 @pytest.mark.skip('this was already broken')
@@ -41,7 +41,7 @@ def test_cli_symbols4():
         'ggg\\beta^{1234=\\(5\\)}lll'
     ])
     print(r.decode())
-    assert r.decode() == 'Σ\n'
+    assert r.decode().strip() == 'Σ'
 
 
 def test_subscripts():
@@ -50,7 +50,7 @@ def test_subscripts():
         'a_{\\beta\\gamma\\phi\\rho\\chi}'
     ])
     print(r.decode())
-    assert r.decode() == 'aᵦᵧᵩᵨᵪ\n'
+    assert r.decode().strip() == 'aᵦᵧᵩᵨᵪ'
 
 
 def test_superscripts():
@@ -59,4 +59,4 @@ def test_superscripts():
         'm^{ABDEGHIJKLMNOPRTUWabcdefghiklmnoprstuvwxyz\\beta\\gamma\\delta\\phi\\chi<>}'
     ])
     print(r.decode())
-    assert r.decode() == 'mᴬᴮᴰᴱᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾᴿᵀᵁᵂᵃᵇᶜᵈᵉᶠᵍʰⁱᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛʷˣʸᶻᵝᵞᵟᵠᵡ˂˃\n'
+    assert r.decode().strip() == 'mᴬᴮᴰᴱᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾᴿᵀᵁᵂᵃᵇᶜᵈᵉᶠᵍʰⁱᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛʷˣʸᶻᵝᵞᵟᵠᵡ˂˃'
