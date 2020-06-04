@@ -1,10 +1,15 @@
 import subprocess
+import sys
+
 import pytest
+
+
+PYTHON = 'python3' if sys.platform != 'win32' else 'python'
 
 
 def test_cli_symbols1():
     r = subprocess.check_output([
-        'python', '-m', 'unicodeit.cli',
+        PYTHON, '-m', 'unicodeit.cli',
         '\\Sigma'
     ])
     print(r.decode())
@@ -13,7 +18,7 @@ def test_cli_symbols1():
 
 def test_cli_symbols2():
     r = subprocess.check_output([
-        'python', '-m', 'unicodeit.cli',
+        PYTHON, '-m', 'unicodeit.cli',
         'def\\Sigma_{01234}abc\\alpha_{567}ggg\\beta_{1234}lll "\\Sigma e_0 e^3"'
     ])
     print(r.decode())
@@ -22,7 +27,7 @@ def test_cli_symbols2():
 
 def test_cli_symbols3():
     r = subprocess.check_output([
-        'python', '-m', 'unicodeit.cli',
+        PYTHON, '-m', 'unicodeit.cli',
         'def^{01234}abc\\alpha^{567abc} "\\:) \\:G"'
     ])
     print(r.decode())
@@ -32,7 +37,7 @@ def test_cli_symbols3():
 @pytest.mark.skip('this was already broken')
 def test_cli_symbols4():
     r = subprocess.check_output([
-        'python', '-m', 'unicodeit.cli',
+        PYTHON, '-m', 'unicodeit.cli',
         'ggg\\beta^{1234=\\(5\\)}lll'
     ])
     print(r.decode())
@@ -41,7 +46,7 @@ def test_cli_symbols4():
 
 def test_subscripts():
     r = subprocess.check_output([
-        'python', '-m', 'unicodeit.cli',
+        PYTHON, '-m', 'unicodeit.cli',
         'a_{\\beta\\gamma\\phi\\rho\\chi}'
     ])
     print(r.decode())
@@ -50,7 +55,7 @@ def test_subscripts():
 
 def test_superscripts():
     r = subprocess.check_output([
-        'python', '-m', 'unicodeit.cli',
+        PYTHON, '-m', 'unicodeit.cli',
         'm^{ABDEGHIJKLMNOPRTUWabcdefghiklmnoprstuvwxyz\\beta\\gamma\\delta\\phi\\chi<>}'
     ])
     print(r.decode())
