@@ -1,6 +1,5 @@
 # Copyright (c) 2010 Sven Kreiss, Kyle Cranmer
 import re
-import six
 
 from .data import REPLACEMENTS, COMBININGMARKS, SUBSUPERSCRIPTS
 
@@ -8,8 +7,6 @@ from .data import REPLACEMENTS, COMBININGMARKS, SUBSUPERSCRIPTS
 def replace(inp):
     result = []
     for f in inp:
-        f = six.text_type(f)
-
         #f = re.sub(r"([^\\])([_|\^])", r"\1\\\2", f) # do not require backslash in front of ^ or _
         #f = re.sub(r"^([_|\^])", r"\\\1", f)
 

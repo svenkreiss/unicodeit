@@ -22,7 +22,6 @@ setup(
     url='https://github.com/svenkreiss/unicodeit',
 
     install_requires=[
-        'six',
     ],
     extras_require={
         'dev': [
