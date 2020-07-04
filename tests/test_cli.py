@@ -47,7 +47,7 @@ def test_cli_symbols4():
 def test_subscripts():
     r = subprocess.check_output([
         PYTHON, '-m', 'unicodeit.cli',
-        'a_{\\beta\\gamma\\phi\\rho\\chi}'
+        'a_{\\beta\\gamma\\varphi\\rho\\chi}'
     ])
     print(r.decode())
     assert r.decode().strip() == 'aᵦᵧᵩᵨᵪ'
@@ -56,7 +56,7 @@ def test_subscripts():
 def test_superscripts():
     r = subprocess.check_output([
         PYTHON, '-m', 'unicodeit.cli',
-        'm^{ABDEGHIJKLMNOPRTUWabcdefghiklmnoprstuvwxyz\\beta\\gamma\\delta\\phi\\chi<>}'
+        'm^{ABDEGHIJKLMNOPRTUWabcdefghiklmnoprstuvwxyz\\beta\\gamma\\delta\\varphi\\chi<>}'
     ])
     print(r.decode())
     assert r.decode().strip() == 'mᴬᴮᴰᴱᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾᴿᵀᵁᵂᵃᵇᶜᵈᵉᶠᵍʰⁱᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛʷˣʸᶻᵝᵞᵟᵠᵡ˂˃'
