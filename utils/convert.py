@@ -118,7 +118,7 @@ def addSubSuperNoSlash(replacements):
     replacements["_\\u03B2"] = "1D66" #beta
     replacements["_\\u03B3"] = "1D67" #gamma
     replacements["_\\u03C1"] = "1D68" #rho
-    replacements["_\\u03C6"] = "1D69" #phi
+    replacements["_\\u03C6"] = "1D69" #varphi
     replacements["_\\u03C7"] = "1D6A" #chi
 
     # superscripts
@@ -193,7 +193,7 @@ def addSubSuperNoSlash(replacements):
     replacements["^\\u03B2"] = "1D5D" #beta
     replacements["^\\u03B3"] = "1D5E" #gamma
     replacements["^\\u03B4"] = "1D5F" #delta
-    replacements["^\\u03C6"] = "1D60" #phi
+    replacements["^\\u03C6"] = "1D60" #varphi
     replacements["^\\u03C7"] = "1D61" #chi
     replacements["^\\u222B"] = "1DB4" #int
 
@@ -375,7 +375,7 @@ def printFromFunction(f):
         if l == "_\\u03C1":
             l = "_{\\rho}"
         if l == "_\\u03C6":
-            l = "_{\\phi}"
+            l = "_{\\varphi}"
         if l == "_\\u03C7":
             l = "_{\\chi}"
         print("%20s  \t %s" % (l, chr(int(u, 16)).encode("utf-8")))
@@ -393,7 +393,7 @@ def jsonFromFunctions(functions):
         if l == "_\\u03C1":
             l = "_{\\rho}"
         if l == "_\\u03C6":
-            l = "_{\\phi}"
+            l = "_{\\varphi}"
         if l == "_\\u03C7":
             l = "_{\\chi}"
 
