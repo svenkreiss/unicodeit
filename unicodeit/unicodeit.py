@@ -23,8 +23,13 @@ def replace(inp):
         # expand groups of subscripts: \_{01234}
         offset = 0
         #for s in re.finditer(r"\\_\{[^\}]+\}", f):
-        for s in re.finditer(r"_\{[0-9\+-=\(\)<>\-aeoxjhklmnpstiruv\u03B2\u03B3\u03C1\u03C6\u03C7]+\}", f):
-            newstring, n = re.subn(r"([0-9\+-=\(\)<>\-aeoxjhklmnpstiruv\u03B2\u03B3\u03C1\u03C6\u03C7])", r"_\1", s.group(0)[2:-1])
+        for s in re.finditer(
+                r"_\{[0-9\+-=\(\)<>\-aeoxjhklmnpstiruv"
+                r"\u03B2\u03B3\u03C1\u03C6\u03C7]+\}", f):
+            newstring, n = re.subn(
+                r"([0-9\+-=\(\)<>\-aeoxjhklmnpstiruv"
+                r"\u03B2\u03B3\u03C1\u03C6\u03C7])",
+                r"_\1", s.group(0)[2:-1])
             f = f[:s.start()+offset] + newstring + f[s.end()+offset:]
             offset += n*2 - (n + 3)
 
@@ -32,8 +37,15 @@ def replace(inp):
         # expand groups of superscripts: \^{01234}
         offset = 0
         #for s in re.finditer(r"\\\^\{[^\}]+\}", f):
-        for s in re.finditer(r"\^\{[0-9\+-=\(\)<>ABDEGHIJKLMNOPRTUWabcdefghijklmnoprstuvwxyz\u03B2\u03B3\u03B4\u03C6\u03C7\u222B]+\}", f):
-            newstring, n = re.subn(r"([0-9\+-=\(\)<>ABDEGHIJKLMNOPRTUWabcdefghijklmnoprstuvwxyz\u03B2\u03B3\u03B4\u03C6\u03C7\u222B])", r"^\1", s.group(0)[2:-1])
+        for s in re.finditer(
+                r"\^\{[0-9\+-=\(\)<>ABDEGHIJKLMNOPRTUW"
+                r"abcdefghijklmnoprstuvwxyz"
+                r"\u03B2\u03B3\u03B4\u03C6\u03C7\u222B]+\}", f):
+            newstring, n = re.subn(
+                r"([0-9\+-=\(\)<>ABDEGHIJKLMNOPRTUW"
+                r"abcdefghijklmnoprstuvwxyz"
+                r"\u03B2\u03B3\u03B4\u03C6\u03C7\u222B])",
+                r"^\1", s.group(0)[2:-1])
             f = f[:s.start()+offset] + newstring + f[s.end()+offset:]
             offset += n*2 - (n + 3)
 
