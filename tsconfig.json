@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "outDir": "./ts_dist/",
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "react",
+    "allowJs": true
+  },
+  "include": [
+    "ts_src/**/*"
+  ],
+  "exclude": [
+    "node_modules/"
+  ]
+}
