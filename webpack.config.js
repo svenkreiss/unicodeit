@@ -1,7 +1,9 @@
 const path = require('path');
 
 module.exports = {
+  mode: 'development',
   entry: './ts_src/replace.ts',
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -16,6 +18,6 @@ module.exports = {
   },
   output: {
     filename: 'unicodeit.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'ts_dist'),
   },
 };
