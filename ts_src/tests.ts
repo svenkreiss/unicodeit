@@ -5,7 +5,7 @@ import { replace } from './replace';
 describe('Symbols', () => {
   describe('alpha', () => {
     it('converts', done => {
-      expect(replace(['\\alpha'])[0]).to.equal('α');
+      expect(replace('\\alpha')).to.equal('α');
       done();
     });
   });

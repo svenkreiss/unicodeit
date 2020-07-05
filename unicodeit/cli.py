@@ -4,7 +4,7 @@ from . import unicodeit
 
 
 if __name__ == "__main__":
-    result = unicodeit.replace(sys.argv[1:])
+    result = [unicodeit.replace(f) for f in sys.argv[1:]]
 
     def print_no_b(data):
         if not isinstance(data, str):

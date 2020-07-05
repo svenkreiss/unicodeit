@@ -13,6 +13,8 @@ if __name__ == "__main__":
 
         f.write('export const replacements = [\n')
         for l, u in REPLACEMENTS:
+            l = l.replace('\\', '\\\\')
+            l = l.replace('\'', '\\\'')
             f.write('   [\'{}\', \'{}\'],\n'.format(l, u))
         f.write('];\n\n')
 
