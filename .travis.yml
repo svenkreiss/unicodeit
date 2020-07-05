@@ -29,7 +29,7 @@ matrix:
 install:
  - "pip3 install --editable .[dev]"
  - node -v
- - npm run install
+ - npm install
  - npm run build
 script:
  - pylint unicodeit --disable=fixme
