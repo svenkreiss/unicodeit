@@ -1,10 +1,10 @@
 import sys
 
-from . import unicodeit
+from .replace import replace
 
 
 if __name__ == "__main__":
-    result = [unicodeit.replace(f) for f in sys.argv[1:]]
+    result = [replace(f) for f in sys.argv[1:]]
 
     def print_no_b(data):
         if not isinstance(data, str):
