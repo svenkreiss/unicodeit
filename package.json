@@ -7,7 +7,10 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "tsc && eslint ts_src --ext .js,.jsx,.ts,.tsx && mocha ./ts_dist/js/tests.js"
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "lint": "eslint ts_src --ext .js,.jsx,.ts,.tsx",
+    "test": "tsc && mocha ./ts_dist/js/tests.js"
   },
   "repository": {
     "type": "git",

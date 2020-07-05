@@ -28,7 +28,12 @@ matrix:
       env: PATH=/c/Python37:/c/Python37/Scripts:$PATH PYTHONIOENCODING=utf8
 install:
  - "pip3 install --editable .[dev]"
+ - node -v
+ - npm run install
+ - npm run build
 script:
  - pylint unicodeit --disable=fixme
  - pylint tests/*.py --disable=fixme
  - pytest -vv
+ - npm run lint
+ - npm run test
