@@ -701,20 +701,20 @@ SYMBOLS_V06 = [
     (r'\i', '\u2139'),
 ]
 COMBININGMARKS_V06 = [
-    (r'\\tilde', '\u0303'),
-    (r'\\grave', '\u0300'),
-    (r'\\dot', '\u0307'),
-    (r'\\acute', '\u0301'),
-    (r'\\doubleunderline', '\u0333'),
-    (r'\\ddot', '\u0308'),
-    (r'\\slash', '\u0338'),
-    (r'\\overline', '\u0305'),
-    (r'\\vec', '\u20D7'),
-    (r'\\hat', '\u0302'),
-    (r'\\breve', '\u0306'),
-    (r'\\underline', '\u0332'),
-    (r'\\strikethrough', '\u0335'),
-    (r'\\bar', '\u0305'),
+    (r'\tilde', '\u0303'),
+    (r'\grave', '\u0300'),
+    (r'\dot', '\u0307'),
+    (r'\acute', '\u0301'),
+    (r'\doubleunderline', '\u0333'),
+    (r'\ddot', '\u0308'),
+    (r'\slash', '\u0338'),
+    (r'\overline', '\u0305'),
+    (r'\vec', '\u20D7'),
+    (r'\hat', '\u0302'),
+    (r'\breve', '\u0306'),
+    (r'\underline', '\u0332'),
+    (r'\strikethrough', '\u0335'),
+    (r'\bar', '\u0305'),
 ]
 SUBSUPERSCRIPTS_V06 = [
     (r'_x', '\u2093'),
@@ -833,6 +833,21 @@ def test_symbols_v06(sets_of_symbols):
         symbols = sets_of_symbols[i:i+20]
         latex = ''.join([l for l, _ in symbols])
         unicode = ''.join([u for _, u in symbols])
+        print(latex)
+
+        r = subprocess.check_output([
+            PYTHON, '-m', 'unicodeit.cli',
+            latex,
+        ])
+        print(r.decode())
+        assert r.decode().strip() == unicode
+
+
+def test_combiningmarks_v06():
+    for i in range(0, len(COMBININGMARKS_V06), 20):
+        symbols = COMBININGMARKS_V06[i:i+20]
+        latex = ''.join([l+'{a}' for l, _ in symbols])
+        unicode = ''.join(['a'+u for _, u in symbols])
         print(latex)
 
         r = subprocess.check_output([
