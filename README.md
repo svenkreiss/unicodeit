@@ -17,3 +17,28 @@ Available online at [unicodeit.net](https://www.unicodeit.net).
 \sfrac{3}{5} ⅗                    \therefore ∴, \because ∵       \subset ⊂, \supset ⊃
 ```
 
+
+## Python
+
+Install with `pip install unicodeit` and run
+
+```sh
+python -m unicodeit.cli \\alpha
+```
+
+or in Python
+
+```py
+import unicodeit
+print(unicodeit.replace('\\alpha'))
+```
+
+
+## JavaScript / TypeScript
+
+Install with `npm install unicodeit --save-dev` and use it like this:
+
+```js
+import 'unicodeit';
+console.log(unicodeit.replace('\\alpha'));
+```
