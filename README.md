@@ -2,11 +2,8 @@
 
 Tested on Linux, Mac and Windows: [![Build Status](https://travis-ci.org/svenkreiss/unicodeit.svg?branch=master)](https://travis-ci.org/svenkreiss/unicodeit)
 
-Converts latex tags into unicode. Available online at www.unicodeit.net or as Automator script for the Mac.
-
-* Online Version: www.unicodeit.net for any platform
-* Linux wrapper: http://code.google.com/p/unicodeitlinux/
-* Introductory Slides: [UnicodeItSlides.pdf](http://www.svenkreiss.com/files/unicodeitslides.pdf)
+Converts LaTeX tags to unicode.
+Available online at [unicodeit.net](https://www.unicodeit.net).
 
 
 ## Examples
