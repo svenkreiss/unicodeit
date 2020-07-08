@@ -1,0 +1,103 @@
+      body {
+        font-family: "Helvetica Neue", helvetica, arial;
+        padding: 30px 15px 30px 15px;
+        color:#999;
+      }
+
+      h1 { color:#55C; margin-top:0; }
+      .banner_it { color:#000; }
+      h1 small { font-size:40%; }
+
+      .leftColumn, .rightColumn { margin-top:50px; }
+
+      #content_manage { display:none; }
+      #content_participate { display:none; }
+
+      .subtitle { font-size:50%; color:#888; }
+      .beta { font-size:40%; color:#ccc; }
+
+      .large_stat { font-size:300%; }
+      .raw { word-wrap:break-word; }
+
+      .footer { color:#ccc; font-size:80%; }
+      .footer a { color:#ccc; }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      ul li {
+        line-height: 1.4;
+      }
+
+      input { margin:5px; }
+      .latexExample {
+        cursor:pointer;
+        max-width:9em;
+        overflow:hidden;
+        text-overflow:ellipsis;
+      }
+
+      .permalink {
+        display: inline-block;
+        margin: 1em 1em 1em 0.5em;
+        font-size: 85%;
+      }
+
+
+
+
+
+
+.twitter-typeahead{
+  width:100%;
+}
+
+.twitter-typeahead .tt-query,
+.twitter-typeahead .tt-hint {
+  margin-bottom: 0;
+}
+.tt-menu {
+  min-width: 160px;
+  margin-top: 2px;
+  padding: 5px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
+  width:100%;
+}
+
+.tt-suggestion {
+  display: block;
+  padding: 3px 20px;
+}
+
+.tt-suggestion:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: #0081c2;
+  background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
+  background-image: -o-linear-gradient(top, #0088cc, #0077b3);
+  background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0)
+}
+
+.tt-suggestion p {
+  margin: 0;
+}

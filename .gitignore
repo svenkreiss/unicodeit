@@ -44,3 +44,4 @@ nosetests.xml
 # js
 ts_dist/
 node_modules
+web/ui.js
