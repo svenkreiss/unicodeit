@@ -7,21 +7,21 @@ const permaLink = $('.permalink');
 
 
 // copy replacements and sort case insensitive
-var listOfReplacements = replacements
+let listOfReplacements = replacements
   .map(function(r) { return { value: r[0], unicode: r[1] }; })
   .sort(function(a, b) { return a.value.toLowerCase().localeCompare(b.value.toLowerCase()); });
 
 // reorder such that when just typing '\' suggestions starting with '\a' appear
-var indexOfFirstA = listOfReplacements
+const indexOfFirstA = listOfReplacements
   .map(function(r) { return r.value.slice(0, 2).toLowerCase(); })
   .indexOf('\\a');
 listOfReplacements = listOfReplacements.slice(indexOfFirstA).concat(listOfReplacements.slice(0, indexOfFirstA));
 
 
 // Bloodhound: the source (dataset) for typeahead
-var mySource = new Bloodhound({
+const mySource = new Bloodhound({
   datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.value); },
-  queryTokenizer: function(d) { var i = d.lastIndexOf('\\'); var r = [d.substr(0, i), d.substr(i)]; console.log(r); return r; },
+  queryTokenizer: function(d) { const i = d.lastIndexOf('\\'); const r = [d.substr(0, i), d.substr(i)]; console.log(r); return r; },
   local: listOfReplacements,
 });
 mySource.initialize();
@@ -51,7 +51,7 @@ latexInput.focus();
 
 
 // click handler for LaTeX examples
-$('.latexExample').on('click', function(e) {
+$('.latexExample').on('click', function() {
   latexInput
     .typeahead('val', $(this).html())
     .trigger('change')
@@ -59,7 +59,7 @@ $('.latexExample').on('click', function(e) {
 });
 
 // generate unicode output and permalink
-latexInput.on('keyup change', function(e) {
+latexInput.on('keyup change', function() {
   const input = <string>$(this).val();
   unicodeOutput.val(replace(input));
   permaLink.attr('href', 'https://www.unicodeit.net/?'+encodeURIComponent(input));
@@ -67,7 +67,7 @@ latexInput.on('keyup change', function(e) {
 
 
 if (location.search) {
-  var latex = decodeURIComponent(location.search.slice(1));
+  const latex = decodeURIComponent(location.search.slice(1));
   latexInput
     .typeahead('val', latex)
     .trigger('change')
