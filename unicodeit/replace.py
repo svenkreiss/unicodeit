@@ -57,4 +57,4 @@ def replace(f: str):
                 remainder = f[i + len(escaped_latex) + 2:]
             f = f[:i] + combined_char + c[1] + remainder
 
-    return f.encode('utf-8')
+    return f
