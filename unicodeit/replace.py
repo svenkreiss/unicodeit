@@ -7,11 +7,9 @@ from .data import REPLACEMENTS, COMBININGMARKS, SUBSUPERSCRIPTS
 def replace(f: str):
     # escape combining marks with a space after the backslash
     for c in COMBININGMARKS:
-        offset = 0
-        for s in re.finditer(c[0], f):
-            f = f[:s.start()+1+offset] + " " + f[s.start()+1+offset:]
-            offset += 1
+        f = f.replace(c[0], '\\ '+c[0][1:])
 
+    # replace
     for r in REPLACEMENTS:
         f = f.replace(r[0], r[1])
 
@@ -48,12 +46,15 @@ def replace(f: str):
     for r in SUBSUPERSCRIPTS:
         f = f.replace(r[0], r[1])
 
-    # combining marks (unicode char modifies previous char)
+    # process combining marks first
     for c in COMBININGMARKS:
-        offset = 0
-        for s in re.finditer(r"\\ "+c[0][2:]+r"\{[^\}]+\}", f):
-            newstring, n = re.subn(r"(.)", r"\1"+c[1], s.group(0)[len(c[0])+1:-1])
-            f = f[:s.start()+offset] + newstring + f[s.end()+offset:]
-            offset += n - (n + len(c[0])+1)
+        escaped_latex = '\\ {}{{'.format(c[0][1:])
+        while escaped_latex in f:
+            i = f.index(escaped_latex)
+            combined_char = f[i + len(escaped_latex)]
+            remainder = ''
+            if len(f) >= i + len(escaped_latex) + 2:
+                remainder = f[i + len(escaped_latex) + 2:]
+            f = f[:i] + combined_char + c[1] + remainder
 
     return f.encode('utf-8')

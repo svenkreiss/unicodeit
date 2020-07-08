@@ -856,3 +856,18 @@ def test_combiningmarks_v06():
         ])
         print(r.decode())
         assert r.decode().strip() == unicode
+
+
+def test_combiningmarks_v06_nested_replace():
+    for i in range(0, len(COMBININGMARKS_V06), 20):
+        symbols = COMBININGMARKS_V06[i:i+20]
+        latex = ''.join([l+'{\\alpha}' for l, _ in symbols])
+        unicode = ''.join(['\u03B1'+u for _, u in symbols])
+        print(latex)
+
+        r = subprocess.check_output([
+            PYTHON, '-m', 'unicodeit.cli',
+            latex,
+        ])
+        print(r.decode())
+        assert r.decode().strip() == unicode
