@@ -150,6 +150,7 @@ REPLACEMENTS = [
     ('\\nLeftarrow', '\u21CD'),
     ('\\Lleftarrow', '\u21DA'),
     ('\\varnothing', '\u2205'),
+    ('\\mathcal{N}', '\U0001D4A9'),
     ('\\Leftarrow', '\u21D0'),
     ('\\gvertneqq', '\u2269'),
     ('\\mathbb{C}', '\u2102'),
