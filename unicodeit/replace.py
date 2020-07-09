@@ -7,11 +7,15 @@ from .data import REPLACEMENTS, COMBININGMARKS, SUBSUPERSCRIPTS
 def replace(f: str):
     # escape combining marks with a space after the backslash
     for c in COMBININGMARKS:
-        f = f.replace(c[0], '\\ '+c[0][1:])
+        f = f.replace(c[0]+'{', '\\ '+c[0][1:]+'{')
 
     # replace
     for r in REPLACEMENTS:
         f = f.replace(r[0], r[1])
+
+        # check whether it was escaped for combining marks but has empty braces
+        if r[0].endswith('{}'):
+            f = f.replace('\\ '+r[0][1:], r[1])
 
     # expand groups of subscripts: \_{01234}
     offset = 0
@@ -51,10 +55,17 @@ def replace(f: str):
         escaped_latex = '\\ {}{{'.format(c[0][1:])
         while escaped_latex in f:
             i = f.index(escaped_latex)
+            if len(f) <= i + len(escaped_latex):
+                # incomplete: unescape and continue
+                f = f[:i] + c[0] + '{'
+                continue
+
             combined_char = f[i + len(escaped_latex)]
+
             remainder = ''
             if len(f) >= i + len(escaped_latex) + 2:
                 remainder = f[i + len(escaped_latex) + 2:]
+
             f = f[:i] + combined_char + c[1] + remainder
 
     return f

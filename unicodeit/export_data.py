@@ -20,7 +20,10 @@ if __name__ == "__main__":
 
         f.write('export const combiningmarks = [\n')
         for l, u in COMBININGMARKS:
-            f.write('   [\'{}\', \'{}\'],\n'.format(l, u))
+            l = l.replace('\\', '\\\\')
+            l = l.replace('\'', '\\\'')
+            f.write('   [\'{}\', \'{}\'],\n'
+                    ''.format(l, u.encode('ascii', 'backslashreplace').decode()))
         f.write('];\n\n')
 
         f.write('export const subsuperscripts = [\n')
