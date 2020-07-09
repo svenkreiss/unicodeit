@@ -42,3 +42,8 @@ Install with `npm install unicodeit --save-dev` and use it like this:
 import 'unicodeit';
 console.log(unicodeit.replace('\\alpha'));
 ```
+
+
+## Mac Automator
+
+![automator script](docs/automator.png)
