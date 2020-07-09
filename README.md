@@ -1,10 +1,9 @@
 # UnicodeIt
 
-Converts latex tags into unicode. Available online at www.unicodeit.net or as Automator script for the Mac.
+Tested on Linux, Mac and Windows: [![Build Status](https://travis-ci.org/svenkreiss/unicodeit.svg?branch=master)](https://travis-ci.org/svenkreiss/unicodeit)
 
-* Online Version: www.unicodeit.net for any platform
-* Linux wrapper: http://code.google.com/p/unicodeitlinux/
-* Introductory Slides: [UnicodeItSlides.pdf](http://www.svenkreiss.com/files/unicodeitslides.pdf)
+Converts LaTeX tags to unicode.
+Available online at [unicodeit.net](https://www.unicodeit.net).
 
 
 ## Examples
@@ -18,3 +17,50 @@ Converts latex tags into unicode. Available online at www.unicodeit.net or as Au
 \sfrac{3}{5} ⅗                    \therefore ∴, \because ∵       \subset ⊂, \supset ⊃
 ```
 
+
+## Python
+
+Install with `pip install unicodeit` and run
+
+```sh
+python -m unicodeit.cli \\alpha
+```
+
+or in Python
+
+```py
+import unicodeit
+print(unicodeit.replace('\\alpha'))
+```
+
+
+## JavaScript / TypeScript
+
+Install with `npm install unicodeit --save-dev` and use it like this:
+
+```js
+import 'unicodeit';
+console.log(unicodeit.replace('\\alpha'));
+```
+
+
+## Mac Automator
+
+Create your own Automator Workflow:
+
+* Create a new "Quick Action".
+* Select "output replaces selected text".
+* Add the action "Run Shell Script".
+* From dropdown, select to "pass in: as arguments".
+* The command is: `/usr/local/bin/python3 -m unicodeit.cli $1`. This Python interpreter must have unicodeit installed; e.g. with `/usr/local/bin/python3 -m pip install unicodeit`.
+* It should look something like this:
+
+![automator script](docs/automator.png)
+
+To set a keyboard shortcut, go to `System Preferences` →
+`Keyboard` → `Keyboard Shortcuts` → `Services` → `Text` → `UnicodeItAction`.
+Choose a keyboard shortcut like `Command+Option+Shift U`.
+
+Now you are all set to use your new keyboard shortcut in many apps, like here in Keynote:
+
+![keynote_demo](docs/unicodeit_demo.gif)

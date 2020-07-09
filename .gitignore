@@ -3,6 +3,7 @@ ent.xml
 
 .DS_Store
 *.py[cod]
+venv*/
 
 # C extensions
 *.so
@@ -37,3 +38,10 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+.vscode/
+
+# js
+ts_dist/
+node_modules
+web/ui.js
