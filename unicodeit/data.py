@@ -150,6 +150,7 @@ REPLACEMENTS = [
     ('\\nLeftarrow', '\u21CD'),
     ('\\Lleftarrow', '\u21DA'),
     ('\\varnothing', '\u2205'),
+    ('\\mathcal{N}', '\U0001D4A9'),
     ('\\Leftarrow', '\u21D0'),
     ('\\gvertneqq', '\u2269'),
     ('\\mathbb{C}', '\u2102'),
@@ -681,6 +682,7 @@ REPLACEMENTS = [
     ('\\l', '\u0142'),
     ('\\h', '\u210E'),
     ('\\i', '\u2139'),
+    ('-', '\u2212'),  # dash to minus
 ]
 
 COMBININGMARKS = [
@@ -733,6 +735,7 @@ SUBSUPERSCRIPTS = [
     ('_1', '\u2081'),
     ('_0', '\u2080'),
     ('_-', '\u208B'),
+    ('_\u2212', '\u208B'),  # minus
     ('_+', '\u208A'),
     ('_)', '\u208E'),
     ('_(', '\u208D'),
@@ -764,6 +767,7 @@ SUBSUPERSCRIPTS = [
     ('^*', '\u002A'),
     ('^+', '\u207A'),
     ('^-', '\u207B'),
+    ('^\u2212', '\u207B'),  # minus
     ('^P', '\u1D3E'),
     ('^R', '\u1D3F'),
     ('^T', '\u1D40'),
