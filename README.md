@@ -48,8 +48,9 @@ console.log(unicodeit.replace('\\alpha'));
 
 Create your own Automator Workflow:
 
-* Create a new "Quick Action".
-* Select "output replaces selected text".
+* Create a new "Service".
+* At the top, leave the defaults: "Service receives *selected text* in *any application*"
+* Select the checkmark "output replaces selected text".
 * Add the action "Run Shell Script".
 * From dropdown, select to "pass in: as arguments".
 * The command is: `/usr/local/bin/python3 -m unicodeit.cli $1`. This Python interpreter must have unicodeit installed; e.g. with `/usr/local/bin/python3 -m pip install unicodeit`.
@@ -58,7 +59,7 @@ Create your own Automator Workflow:
 ![automator script](docs/automator.png)
 
 To set a keyboard shortcut, go to `System Preferences` →
-`Keyboard` → `Keyboard Shortcuts` → `Services` → `Text` → `UnicodeItAction`.
+`Keyboard` → `Shortcuts` → `Services` → `Text` → `UnicodeItAction`.
 Choose a keyboard shortcut like `Command+Option+Shift U`.
 
 Now you are all set to use your new keyboard shortcut in many apps, like here in Keynote:
