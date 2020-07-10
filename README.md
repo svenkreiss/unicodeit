@@ -48,7 +48,7 @@ console.log(unicodeit.replace('\\alpha'));
 
 Create your own Automator Workflow:
 
-* Create a new "Service".
+* Create a new "Quick Action" (might also be labeled as "Service").
 * At the top, leave the defaults: "Service receives *selected text* in *any application*"
 * Select the checkmark "output replaces selected text".
 * Add the action "Run Shell Script".
