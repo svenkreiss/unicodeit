@@ -7,6 +7,9 @@
   "directories": {
     "test": "tests"
   },
+  "files": [
+    "ts_dist/**/*"
+  ],
   "scripts": {
     "build": "tsc && webpack",
     "watch-tsc": "tsc --watch",
