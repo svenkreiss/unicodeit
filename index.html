@@ -8,128 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-
-    <style>
-      body {
-        font-family: "Helvetica Neue", helvetica, arial;
-        padding: 30px 15px 30px 15px;
-        color:#999;
-      }
-
-      h1 { color:#55C; margin-top:0; }
-      .banner_it { color:#000; }
-      h1 small { font-size:40%; }
-
-      .leftColumn, .rightColumn { margin-top:50px; }
-
-      #content_manage { display:none; }
-      #content_participate { display:none; }
-
-      .subtitle { font-size:50%; color:#888; }
-      .beta { font-size:40%; color:#ccc; }
-
-      .large_stat { font-size:300%; }
-      .raw { word-wrap:break-word; }
-
-      .footer { color:#ccc; font-size:80%; }
-      .footer a { color:#ccc; }
-
-      ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-
-      ul li {
-        line-height: 1.4;
-      }
-
-      input { margin:5px; }
-      .latexExample {
-        cursor:pointer;
-        max-width:9em;
-        overflow:hidden;
-        text-overflow:ellipsis;
-      }
-
-      .permalink {
-        display: inline-block;
-        margin: 1em 1em 1em 0.5em;
-        font-size: 85%;
-      }
-
-
-
-
-
-
-.twitter-typeahead{
-width:100%;
-}
-
-.twitter-typeahead .tt-query,
-.twitter-typeahead .tt-hint {
-  margin-bottom: 0;
-}
-.tt-dropdown-menu {
-  min-width: 160px;
-  margin-top: 2px;
-  padding: 5px 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0,0,0,.2);
-  *border-right-width: 2px;
-  *border-bottom-width: 2px;
-  -webkit-border-radius: 6px;
-     -moz-border-radius: 6px;
-          border-radius: 6px;
-  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-          box-shadow: 0 5px 10px rgba(0,0,0,.2);
-  -webkit-background-clip: padding-box;
-     -moz-background-clip: padding;
-          background-clip: padding-box;
-  width:100%;
-}
-
-.tt-suggestion {
-  display: block;
-  padding: 3px 20px;
-}
-
-.tt-suggestion.tt-is-under-cursor {
-  color: #fff;
-  background-color: #0081c2;
-  background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
-  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
-  background-image: -o-linear-gradient(top, #0088cc, #0077b3);
-  background-image: linear-gradient(to bottom, #0088cc, #0077b3);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0)
-}
-
-.tt-suggestion.tt-is-under-cursor a {
-  color: #fff;
-}
-
-.tt-suggestion p {
-  margin: 0;
-}
-
-
-
-
-
-
-    </style>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css?version=0.7.0" />
   </head>
   <body>
-    <!--[if lt IE 8]>
-        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-
 <div class="container page">
 <div class="row">
   <div class="col-sm-4 leftColumn">
@@ -155,7 +37,7 @@ width:100%;
 <div class="row">
   <div class="col-sm-4 leftColumn">
     <p>Created by <a href="https://www.svenkreiss.com">Sven Kreiss</a> and <a href="http://www.theoryandpractice.org">Kyle Cranmer</a>.<br />
-    Fork on <a href="https://github.com/svenkreiss/unicodeit">GitHub</a>.</p>
+    Maintained on <a href="https://github.com/svenkreiss/unicodeit">GitHub</a>.</p>
 
 
     <p>
@@ -172,12 +54,10 @@ width:100%;
 
     <br /><br />
 
-    <h3>Download</h3>
+    <h3>Python / JavaScript / Automator</h3>
 
     <p>
-    Download the Mac OS X app: <a href="https://bit.ly/PURul8">unicodeit062.zip</a>.<br />
-    And here is a modified version for Keynote 6 that copies the output to the clipboard: <a href="https://bit.ly/1hltYID">unicodeit062clipboard.zip</a>.<br />
-    More info and an app for linux is here: <a href="https://www.svenkreiss.com/UnicodeIt">www.svenkreiss.com/UnicodeIt</a>.
+    All the info in the <a href="https://github.com/svenkreiss/unicodeit/blob/master/README.md">README file</a>.
     </p>
 
 
@@ -207,74 +87,8 @@ width:100%;
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-    <script src="typeahead.min.js?version=0.10.5"></script>
-    <script src="unicodeit.js?version=0.6.2"></script>
-    <script>
-// copy replacements and sort case insensitive
-var listOfReplacements = replacements
-  .map(function(r) { return { value: r[0], unicode: r[1] }; })
-  .sort(function(a, b) { return a.value.toLowerCase().localeCompare(b.value.toLowerCase()); });
-
-// reorder such that when just typing '\' suggestions starting with '\a' appear
-var indexOfFirstA = listOfReplacements
-  .map(function(r) { return r.value.slice(0, 2).toLowerCase(); })
-  .indexOf('\\a');
-listOfReplacements = listOfReplacements.slice(indexOfFirstA).concat(listOfReplacements.slice(0, indexOfFirstA));
-
-
-// Bloodhound: the source (dataset) for typeahead
-var mySource = new Bloodhound({
-  datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.value); },
-  queryTokenizer: function(d) { var i = d.lastIndexOf('\\'); var r = [d.substr(0, i), d.substr(i)]; console.log(r); return r; },
-  local: listOfReplacements,
-  limit: 15,
-});
-mySource.initialize();
-
-// apply typeahead to input text field
-$('#latexInput').typeahead(null, {
-  displayKey: 'value',
-  source: mySource.ttAdapter(),
-  hint: false,
-  templates: {
-    suggestion: function(datum) {
-      return '<div><span style="display:inline-block;width:3em;">'+datum.unicode+'</span><strong>'+datum.value+'</strong></div>';
-    },
-  },
-});
-
-
-$('#latexInput').on('typeahead:selected', function (object, datum) {
-  $('input#unicodeOutput').val(datum.unicode);
-});
-// $('.tt-query').css('background-color','#fff');
-$('#latexInput').focus();
-
-
-// click handler for LaTeX examples
-$('.latexExample').on('click', function(e) {
-  $('#latexInput')
-    .typeahead('val', $(this).html())
-    .trigger('change')
-    .focus();
-});
-
-// generate unicode output and permalink
-$('#latexInput').on('keyup change', function(e) {
-  $('input#unicodeOutput').val( replace([$(this).val()]) );
-  $('.permalink').attr('href', 'https://www.unicodeit.net/?'+encodeURIComponent($(this).val()));
-});
-
-
-if (location.search) {
-  var latex = decodeURIComponent(location.search.slice(1));
-  $('#latexInput')
-    .typeahead('val', latex)
-    .trigger('change')
-    .focus();
-}
-    </script>
-
+    <script src="//twitter.github.com/typeahead.js/releases/latest/typeahead.bundle.min.js"></script>
+    <script src="ui.js?version=0.7.0"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -284,7 +98,6 @@ if (location.search) {
       ga('create', 'UA-4070485-7', 'unicodeit.net');
       ga('set', 'anonymizeIp', true);
       ga('send', 'pageview');
-
     </script>
   </body>
 </html>
