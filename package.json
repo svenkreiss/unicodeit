@@ -1,14 +1,16 @@
 {
   "name": "unicodeit",
-  "version": "0.7.0-pre1",
+  "version": "0.7.0",
   "description": "Converts LaTeX tags to unicode.",
-  "main": "index.js",
+  "main": "ts_dist/js/index.js",
+  "types": "ts_dist/js/index.d.ts",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "build": "webpack",
-    "watch": "webpack --watch",
+    "build": "tsc && webpack",
+    "watch-tsc": "tsc --watch",
+    "watch-web": "webpack --watch",
     "lint": "eslint ts_src --ext .js,.jsx,.ts,.tsx",
     "test": "tsc && mocha ./ts_dist/js/tests.js"
   },

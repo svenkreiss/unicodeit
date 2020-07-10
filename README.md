@@ -39,7 +39,7 @@ print(unicodeit.replace('\\alpha'))
 Install with `npm install unicodeit --save-dev` and use it like this:
 
 ```js
-import 'unicodeit';
+var unicodeit = require('unicodeit');
 console.log(unicodeit.replace('\\alpha'));
 ```
 
