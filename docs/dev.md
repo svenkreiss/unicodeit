@@ -35,5 +35,5 @@ npm publish
 # follow steps of NPM release first
 
 # push web folder to gh-pages branch
-ghp-import web --no-jekyll --push gh-pages
+ghp-import --no-jekyll --push web
 ```
