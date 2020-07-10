@@ -22,6 +22,10 @@ export function replace(f: string): string {
         const r = replacements[ir];
         // dirty way of a replaceAll():
         f = f.split(r[0]).join(r[1]);
+
+        if (r[0].slice(-2) == '{}') {
+            f = f.split('\\ '+r[0].slice(1)).join(r[1]);
+        }
     }
 
     // expand groups of subscripts: _{01234}
