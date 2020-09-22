@@ -13,7 +13,7 @@ setup(
     packages=[
         'unicodeit',
     ],
-    license='',
+    license='MIT',
     description='Converts LaTeX tags to unicode',
     long_description=open('README.md', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
