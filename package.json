@@ -22,7 +22,7 @@
     "url": "git+https://github.com/svenkreiss/unicodeit.git"
   },
   "author": "Sven Kreiss",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/svenkreiss/unicodeit/issues"
   },
