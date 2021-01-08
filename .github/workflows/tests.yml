@@ -60,10 +60,8 @@ jobs:
         PYTHONIOENCODING: utf8
     - name: Test TS data is up-to-date
       run: |
-        md5 ts_src/data.ts > ts_data_before.txt
-        python -m unicodeit.export_data
-        md5 ts_src/data.ts > ts_data_after.txt
-        cmp -s ts_data_before.txt ts_data_after.txt
+        python -m unicodeit.export_data ts_data_from_py.ts
+        cmp -s ts_src/data.ts ts_data_from_py.ts
     - name: Lint js
       run: npm run lint
     - name: Test js
