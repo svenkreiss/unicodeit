@@ -62,6 +62,8 @@ jobs:
       run: |
         python -m unicodeit.export_data ts_data_from_py.ts
         cmp -s ts_src/data.ts ts_data_from_py.ts
+      env:
+        PYTHONIOENCODING: utf8
     - name: Lint js
       run: npm run lint
     - name: Test js
