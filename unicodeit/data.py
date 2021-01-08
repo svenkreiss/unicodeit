@@ -1,3 +1,5 @@
+# pylint: disable=too-many-lines
+
 REPLACEMENTS = [
     ('\\barleftarrowrightarrowba', '\u21b9'),
     ('\\rightarrowshortleftarrow', '\u2942'),
@@ -4256,7 +4258,7 @@ REPLACEMENTS = [
     ('\\{', '{'),
     ('\\|', '\u2016'),
     ('-', '\u2212'),
-    ('\\', '\\'),  
+    ('\\', '\\'),
 ]
 
 COMBININGMARKS = [
