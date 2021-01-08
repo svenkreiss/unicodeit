@@ -27,6 +27,7 @@ setup(
         'dev': [
             'pytest',
             'pylint',
+            'pycodestyle',
         ],
     },
 )
