@@ -15,6 +15,7 @@ if __name__ == "__main__":
         for l, u in REPLACEMENTS:
             l = l.replace('\\', '\\\\')
             l = l.replace('\'', '\\\'')
+            u = u.replace('\\', '\\\\')
             f.write('   [\'{}\', \'{}\'],\n'.format(l, u))
         f.write('];\n\n')
 
