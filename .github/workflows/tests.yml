@@ -56,6 +56,8 @@ jobs:
       run: python -m pycodestyle tests/*.py
     - name: Test
       run: pytest -vv
+      env:
+        PYTHONIOENCODING: utf8
     - name: Lint js
       run: npm run lint
     - name: Test js
