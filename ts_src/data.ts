@@ -1798,7 +1798,7 @@ export const replacements = [
    ['\\mathrm{X}', 'X'],
    ['\\mathrm{Y}', 'Y'],
    ['\\mathrm{Z}', 'Z'],
-   ['\\backslash', '\'],
+   ['\\backslash', '\\'],
    ['\\mathrm{a}', 'a'],
    ['\\mathrm{b}', 'b'],
    ['\\mathrm{c}', 'c'],
@@ -4258,7 +4258,6 @@ export const replacements = [
    ['\\{', '{'],
    ['\\|', '‖'],
    ['-', '−'],
-   ['\\', '\'],
 ];
 
 export const combiningmarks = [
