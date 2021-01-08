@@ -1,6 +1,6 @@
 # UnicodeIt
 
-Tested on Linux, Mac and Windows: [![Build Status](https://travis-ci.org/svenkreiss/unicodeit.svg?branch=master)](https://travis-ci.org/svenkreiss/unicodeit)
+Tested on Linux, Mac and Windows: ![Tests](https://github.com/svenkreiss/unicodeit/workflows/Tests/badge.svg)
 
 Converts LaTeX tags to unicode.
 Available online at [unicodeit.net](https://www.unicodeit.net).
