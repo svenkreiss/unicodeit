@@ -829,7 +829,7 @@ SUBSUPERSCRIPTS_V06 = [
 @pytest.mark.parametrize('sets_of_symbols', [SYMBOLS_V06, SUBSUPERSCRIPTS_V06])
 def test_symbols_v06(sets_of_symbols):
     for i in range(0, len(sets_of_symbols), 20):
-        symbols = sets_of_symbols[i:i+20]
+        symbols = sets_of_symbols[i:i + 20]
         latex = ''.join([l for l, _ in symbols])
         unicode = ''.join([u for _, u in symbols])
         print(latex)
@@ -844,9 +844,9 @@ def test_symbols_v06(sets_of_symbols):
 
 def test_combiningmarks_v06():
     for i in range(0, len(COMBININGMARKS_V06), 20):
-        symbols = COMBININGMARKS_V06[i:i+20]
-        latex = ''.join([l+'{a}' for l, _ in symbols])
-        unicode = ''.join(['a'+u for _, u in symbols])
+        symbols = COMBININGMARKS_V06[i:i + 20]
+        latex = ''.join([l + '{a}' for l, _ in symbols])
+        unicode = ''.join(['a' + u for _, u in symbols])
         print(latex)
 
         r = subprocess.check_output([
@@ -859,9 +859,9 @@ def test_combiningmarks_v06():
 
 def test_combiningmarks_v06_nested_replace():
     for i in range(0, len(COMBININGMARKS_V06), 20):
-        symbols = COMBININGMARKS_V06[i:i+20]
-        latex = ''.join([l+'{\\alpha}' for l, _ in symbols])
-        unicode = ''.join(['\u03B1'+u for _, u in symbols])
+        symbols = COMBININGMARKS_V06[i:i + 20]
+        latex = ''.join([l + '{\\alpha}' for l, _ in symbols])
+        unicode = ''.join(['\u03B1' + u for _, u in symbols])
         print(latex)
 
         r = subprocess.check_output([
