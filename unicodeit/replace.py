@@ -21,10 +21,10 @@ def replace(f: str):
     offset = 0
     for s in re.finditer(
             r"_\{[0-9\+-=\(\)<>\-aeoxjhklmnpstiruv"
-            r"\u03B2\u03B3\u03C1\u03C6\u03C7]+\}", f):
+            r"\u03B2\u03B3\u03C1\u03C6\u03C7\u2212]+\}", f):
         newstring, n = re.subn(
             r"([0-9\+-=\(\)<>\-aeoxjhklmnpstiruv"
-            r"\u03B2\u03B3\u03C1\u03C6\u03C7])",
+            r"\u03B2\u03B3\u03C1\u03C6\u03C7\u2212])",
             r"_\1", s.group(0)[2:-1])
         f = f[:s.start() + offset] + newstring + f[s.end() + offset:]
         offset += n * 2 - (n + 3)
@@ -34,11 +34,11 @@ def replace(f: str):
     for s in re.finditer(
             r"\^\{[0-9\+-=\(\)<>ABDEGHIJKLMNOPRTUW"
             r"abcdefghijklmnoprstuvwxyz"
-            r"\u03B2\u03B3\u03B4\u03C6\u03C7\u222B]+\}", f):
+            r"\u03B2\u03B3\u03B4\u03C6\u03C7\u222B\u2212]+\}", f):
         newstring, n = re.subn(
             r"([0-9\+-=\(\)<>ABDEGHIJKLMNOPRTUW"
             r"abcdefghijklmnoprstuvwxyz"
-            r"\u03B2\u03B3\u03B4\u03C6\u03C7\u222B])",
+            r"\u03B2\u03B3\u03B4\u03C6\u03C7\u222B\u2212])",
             r"^\1", s.group(0)[2:-1])
         f = f[:s.start() + offset] + newstring + f[s.end() + offset:]
         offset += n * 2 - (n + 3)
