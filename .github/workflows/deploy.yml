@@ -65,6 +65,7 @@ jobs:
       - run: npm run build
 
   publish_npm:
+    needs: [build_npm]
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published'
     steps:
@@ -93,9 +94,8 @@ jobs:
       - run: npm run test
       - run: npm run build
 
-      - uses: actions/setup-python@v2
-        name: Install Python
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          python-version: '3.7'
-      - run: pip install ghp-import
-      - run: ghp-import --no-jekyll --push web
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./web
