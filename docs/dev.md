@@ -1,3 +1,13 @@
+Update version number in
+* `unicode/__init__.py`
+* `package.json`
+
+Do a github release.
+
+
+==================
+OLD:
+
 # Python Release
 
 ```sh
