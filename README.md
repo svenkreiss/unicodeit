@@ -10,7 +10,7 @@ Available online at [unicodeit.net](https://www.unicodeit.net).
 
 ```
 \alpha α, \beta β, \infty ∞       e^+ e⁺, \mu^- μ⁻               \exists ∃, \nexists ∄
-\int ∫, \sum ∑, \partial ∂         \to →, p\bar{p} pp̅             \mathcal{H} ℋ, \mathbb{R} ℝ
+\int ∫, \sum ∑, \partial ∂        \to →, p\bar{p} pp̅             \mathcal{H} ℋ, \mathbb{R} ℝ
 \slash{\partial} ∂̸                \underline{x} x̲                \phone ☎, \checkmark ✓
 \dot{x} ẋ, \ddot{x} ẍ             A^6 A⁶, m_0 m₀                 \Im ℑ, \Re ℜ, \hbar ℏ
 \gamma γ, \Gamma Γ                \~{O} Õ                        \perp ⊥, \parallel ∥
