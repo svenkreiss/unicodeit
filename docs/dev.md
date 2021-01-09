@@ -1,6 +1,7 @@
 Update version number in
 * `unicode/__init__.py`
 * `package.json`
+* in two places in `web/index.html`
 
 Do a github release.
 
