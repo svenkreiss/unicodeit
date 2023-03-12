@@ -1,6 +1,6 @@
 {
   "name": "unicodeit",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Converts LaTeX tags to unicode.",
   "main": "ts_dist/js/index.js",
   "types": "ts_dist/js/index.d.ts",
