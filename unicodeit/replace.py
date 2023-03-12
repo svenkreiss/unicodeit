@@ -49,7 +49,7 @@ def replace(f: str):
 
     # process combining marks first
     for c in COMBININGMARKS:
-        escaped_latex = '\\ {}{{'.format(c[0][1:])
+        escaped_latex = f'\\ {c[0][1:]}{{'
         while escaped_latex in f:
             i = f.index(escaped_latex)
             if len(f) <= i + len(escaped_latex):
