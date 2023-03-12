@@ -65,3 +65,9 @@ Choose a keyboard shortcut like `Command+Option+Shift U`.
 Now you are all set to use your new keyboard shortcut in many apps, like here in Keynote:
 
 ![keynote_demo](docs/unicodeit_demo.gif)
+
+
+## [dev] New Release Flow
+
+* update version in `uncodeit/__init__.py` and `package.json`
+* create a new release on Github
