@@ -4,6 +4,9 @@ import { combiningmarks, replacements, subsuperscripts } from './data';
 
 
 export function replace(f: string): string {
+    // Catch cases like \not\subset and \not\in and convert them to
+    // use the combining character slash as in \slash{\subset}
+    f = f.replace(/\\not(\\[A-z]+)/g, '\\slash{$1}');
     // escape combining marks with a space after the backslash
     for (const ic in combiningmarks) {
         const c = combiningmarks[ic];
