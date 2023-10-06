@@ -25,9 +25,12 @@ setup(
     ],
     extras_require={
         'dev': [
+            'mypy',
             'pytest',
             'pylint',
             'pycodestyle',
         ],
     },
+
+    package_data=dict(unicodeit=['py.typed'])
 )

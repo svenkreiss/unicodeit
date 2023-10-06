@@ -4,7 +4,7 @@ import re
 from .data import REPLACEMENTS, COMBININGMARKS, SUBSUPERSCRIPTS
 
 
-def replace(f: str):
+def replace(f: str) -> str:
     # Catch cases like \not\subset and \not\in and convert them to
     # use the combining character slash as in \slash{\subset}
     f = re.sub(r'\\not(\\[A-z]+)', r'\\slash{\1}', f)
